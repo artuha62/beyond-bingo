@@ -7,7 +7,7 @@ const Bingo = ({ cards, handleCloseMenu, ...handlers }) => {
 
   return (
     <>
-      <Title>Bingo Яasdasd</Title>
+      <Title>Bingo</Title>
       {isMenuOpen && (
         <div className="global-overlay" onClick={handleCloseMenu}></div>
       )}
