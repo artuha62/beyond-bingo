@@ -26,12 +26,10 @@ const Card = memo(function Card({
     if (!node) return
 
     const handleEnd = () => {
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.focus()
-          // inputRef.current.select()
-        }
-      }, 120)
+      if (inputRef.current) {
+        inputRef.current.focus()
+        inputRef.current.select()
+      }
 
       node.removeEventListener('transitionend', handleEnd)
     }
@@ -48,18 +46,6 @@ const Card = memo(function Card({
         ${card.isFlipped ? 'flipped' : ''} 
         ${card.isRemoving ? 'removing' : ''}
       `}
-      onPointerDown={(event) => {
-        // если айпад и PWA — это наш шанс
-        if (
-          navigator.standalone ||
-          window.matchMedia('(display-mode: standalone)').matches
-        ) {
-          setTimeout(() => {
-            inputRef.current?.focus()
-            inputRef.current?.select()
-          }, 0)
-        }
-      }}
       onPointerDown={() => handleOpenMenu(card.id, card.isEditing, cardRef)}
       onPointerUp={handleMouseUp}
     >
