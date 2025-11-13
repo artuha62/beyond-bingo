@@ -1,10 +1,11 @@
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import CardMenu from './CardMenu/CardMenu.jsx'
 import MenuPortal from '../MenuPortal.jsx'
 import { useRef } from 'react'
 
 const Card = memo(function Card({
   card,
+  menu,
   handleFlip,
   handleSubmit,
   handleInputChange,
@@ -16,14 +17,37 @@ const Card = memo(function Card({
   handleMouseUp,
 }) {
   const cardRef = useRef(null)
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+    if (!card.isEditing) return
+
+    const node = cardRef.current
+    if (!node) return
+
+    const handleEnd = () => {
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus()
+          // inputRef.current.select()
+        }
+      }, 120)
+
+      node.removeEventListener('transitionend', handleEnd)
+    }
+
+    node.addEventListener('transitionend', handleEnd)
+
+    return () => node.removeEventListener('transitionend', handleEnd)
+  }, [card.isEditing])
 
   return (
     <div
       ref={cardRef}
-      className={`flip-card ${!card.text ? 'flip-card--new' : ''} ${
-        card.isFlipped ? 'flipped' : ''
-      } ${card.isEditing ? 'editing' : ''}`}
-      key={card.id}
+      className={`flip-card
+        ${card.isFlipped ? 'flipped' : ''} 
+        ${card.isRemoving ? 'removing' : ''}
+      `}
       onPointerDown={() => handleOpenMenu(card.id, card.isEditing, cardRef)}
       onPointerUp={handleMouseUp}
     >
@@ -36,10 +60,11 @@ const Card = memo(function Card({
       {card.isEditing ? (
         <div className="flip-card-text">
           <form
+            onBlur={(event) => handleSubmit(card.id, event)}
             onSubmit={(event) => handleSubmit(card.id, event)}
-            onClick={(event) => event.stopPropagation()}
           >
             <input
+              ref={inputRef}
               className="flip-card-input"
               type="text"
               placeholder="Напиши что-нибудь..."
@@ -67,13 +92,14 @@ const Card = memo(function Card({
 
       {/* Меню */}
       <MenuPortal>
-        <CardMenu
-          showMenu={card.showMenu}
-          menuPosition={card.menuPosition}
-          menuRename={() => handleRenameCard(card.id)}
-          menuDelete={() => handleDeleteCard(card.id)}
-          handleCloseMenu={() => handleCloseMenu(card.id)}
-        />
+        {menu.openCardId === card.id && (
+          <CardMenu
+            position={menu.position}
+            onRename={() => handleRenameCard(card.id)}
+            onDelete={() => handleDeleteCard(card.id)}
+            onClose={handleCloseMenu}
+          />
+        )}
       </MenuPortal>
     </div>
   )

@@ -20,6 +20,11 @@ const useCards = () => {
         ]
   })
 
+  const [menu, setMenu] = useState({
+    openCardId: null,
+    position: null,
+  })
+
   // ---LOCAL STORAGE SYNC---
   useEffect(() => {
     localStorage.setItem('cards', JSON.stringify(cards))
@@ -110,54 +115,51 @@ const useCards = () => {
       clearTimer()
 
       timerRef.current = setTimeout(() => {
-        const rect = ref.current?.getBoundingClientRect() || null
-        setCards((prev) =>
-          prev.map((card) =>
-            card.id === cardId
-              ? { ...card, showMenu: true, menuPosition: rect }
-              : card
-          )
-        )
+        const rect = ref.current?.getBoundingClientRect()
+
+        const menuWidth = 220
+        const menuHeight = 74
+
+        if (!rect) return
+
+        setMenu({
+          openCardId: cardId,
+          position: {
+            x: rect.left + (rect.width - menuWidth) / 2,
+            y: rect.top + (rect.height - menuHeight) / 2,
+          },
+        })
       }, 400)
     },
     [clearTimer]
   )
 
-  const handleCloseMenu = useCallback(
-    (cardId) => {
-      clearTimer()
-
-      // Если cardId = MouseEvent → игнорируем
-      if (cardId && typeof cardId !== 'number') {
-        cardId = undefined
-      }
-
-      setCards((prev) =>
-        prev.map((card) =>
-          cardId == null
-            ? { ...card, showMenu: false }
-            : card.id === cardId
-              ? { ...card, showMenu: false }
-              : card
-        )
-      )
-    },
-    [clearTimer]
-  )
+  const handleCloseMenu = useCallback(() => {
+    clearTimer()
+    setMenu({
+      openCardId: null,
+      position: null,
+    })
+  }, [clearTimer])
 
   const handleDeleteCard = useCallback((cardId) => {
     const confirmDelete = confirm('Ты точно хочешь удалить эту карточку?')
     if (!confirmDelete) return
 
-    // закрываем меню
+    setMenu({
+      openCardId: null,
+      position: null,
+    })
+
     setCards((prev) =>
-      prev.map((c) => (c.id === cardId ? { ...c, showMenu: false } : c))
+      prev.map((card) =>
+        card.id === cardId ? { ...card, isRemoving: true } : card
+      )
     )
 
-    // удаляем карту с небольшой задержкой
     setTimeout(() => {
       setCards((prev) => prev.filter((c) => c.id !== cardId))
-    }, 50)
+    }, 250)
   }, [])
 
   const handleRenameCard = useCallback(
@@ -170,11 +172,14 @@ const useCards = () => {
                 ...card,
                 isEditing: true,
                 shouldSpawnNext: false,
-                showMenu: false,
               }
             : card
         )
       )
+      setMenu({
+        openCardId: null,
+        position: null,
+      })
     },
     [clearTimer]
   )
@@ -186,6 +191,7 @@ const useCards = () => {
   // ---EXPORT---
   return {
     cards,
+    menu,
     handleFlip,
     handleInputChange,
     handleSubmit,

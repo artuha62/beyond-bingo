@@ -56,6 +56,18 @@ body {
   grid-template-rows: repeat(5, 1fr);
 }
 
+.card-wrapper {
+  animation: cardIn 0.3s ease forwards;
+  transform-origin: center;
+}
+@keyframes cardIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
 /* ===============================
    🧩 ОСНОВНАЯ КАРТОЧКА
 ================================= */
@@ -65,11 +77,6 @@ body {
   height: 100%;
   perspective: 1000px;
   user-select: none;
-  transition-duration: 0.2s;
-}
-
-.flip-card:active {
-  transform: scale(0.9);
 }
 
 /* ===============================
@@ -112,11 +119,15 @@ body {
   border-radius: 10px;
 
   padding: 20px;
+  transition-duration: 0.2s;
+}
+
+.flip-card-body:active {
+  transform: scale(0.9);
 }
 
 .flip-card-plus,
-.flip-card-text,
-.flip-card-body {
+.flip-card-text {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
@@ -195,7 +206,7 @@ body {
 }
 
 /* ===============================
-   🔄 АНИМАЦИЯ ПЕРЕВОРОТА
+   🔄 АНИМАЦИИ
 ================================= */
 .flip-card.flipped .flip-card-plus {
   transform: rotateY(180deg);
@@ -208,6 +219,19 @@ body {
 .flip-card.flipped .flip-card-plus,
 .flip-card.flipped .flip-card-text {
   transform-style: preserve-3d;
+}
+
+.flip-card.removing {
+  animation: cardOut 0.3s ease forwards;
+}
+
+@keyframes cardOut {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
 }
 
 .counter-body {

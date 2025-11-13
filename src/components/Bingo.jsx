@@ -1,9 +1,8 @@
-import { AnimatePresence, motion } from 'motion/react'
 import Card from './Card.jsx'
 import Title from './Title.jsx'
 
-const Bingo = ({ cards, handleCloseMenu, ...handlers }) => {
-  const isMenuOpen = cards.some((card) => card.showMenu)
+const Bingo = ({ cards, menu, handleCloseMenu, ...handlers }) => {
+  const isMenuOpen = menu.openCardId !== null
 
   return (
     <>
@@ -12,24 +11,17 @@ const Bingo = ({ cards, handleCloseMenu, ...handlers }) => {
         <div className="global-overlay" onClick={handleCloseMenu}></div>
       )}
       <div className="cards-grid">
-        <AnimatePresence>
-          {cards.map((card) => (
-            <motion.div
+        {cards.map((card) => (
+          <div className="card-wrapper">
+            <Card
               key={card.id}
-              layout
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-            >
-              <Card
-                card={card}
-                handleCloseMenu={handleCloseMenu}
-                {...handlers}
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
+              card={card}
+              menu={menu}
+              handleCloseMenu={handleCloseMenu}
+              {...handlers}
+            />
+          </div>
+        ))}
       </div>
     </>
   )
