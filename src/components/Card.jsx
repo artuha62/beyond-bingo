@@ -1,6 +1,5 @@
 import { memo } from 'react'
 import CardMenu from './CardMenu/CardMenu.jsx'
-import AnimatedCounter from './AnimatedCounter.jsx'
 import MenuPortal from '../MenuPortal.jsx'
 import { useRef } from 'react'
 
@@ -58,7 +57,10 @@ const Card = memo(function Card({
         >
           <span className="flip-card-description">{card.text}</span>
           <span className="flip-card-counter">
-            <AnimatedCounter value={card.count} />
+            <div className="counter-body">
+              <div>x</div>
+              <div>{card.count}</div>
+            </div>
           </span>
         </div>
       )}
