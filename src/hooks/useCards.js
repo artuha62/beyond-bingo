@@ -109,34 +109,6 @@ const useCards = () => {
       isEditing: false,
     },
     {
-      id: 16,
-      text: 'ВАЛАКАС ОТКРЫЛ ПАРТИЮ ГИПЕРБОРОВ',
-      count: 4,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 17,
-      text: 'ПУТИН ПОТЕРЯЛ ПУЛЬТ',
-      count: 3,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 18,
-      text: 'ТРАМП РУГАЕТСЯ С ТУМБОЙ',
-      count: 6,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 19,
-      text: 'МАСК ПОСТРОИЛ РАКЕТУ ИЗ ПАКЕТОВ',
-      count: 10,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
       id: Date.now(),
       text: '',
       count: 0,
@@ -228,7 +200,7 @@ const useCards = () => {
           : card
       )
 
-      if (isLastCard && prevCards.length < 20) {
+      if (isLastCard && prevCards.length < 16) {
         updatedCard.push({
           id: Date.now(),
           text: '',
@@ -262,8 +234,8 @@ const useCards = () => {
       timerRef.current = setTimeout(() => {
         const rect = ref.current?.getBoundingClientRect()
 
-        const menuWidth = 220
-        const menuHeight = 64
+        const menuWidth = 289
+        const menuHeight = 79
 
         if (!rect) return
 
@@ -307,7 +279,7 @@ const useCards = () => {
         const filtered = prevCards.filter((card) => card.id !== cardId)
 
         const lastCard = filtered[filtered.length - 1]
-        const needsNewCard = filtered.length < 20 && lastCard?.text
+        const needsNewCard = filtered.length < 16 && lastCard?.text
 
         if (needsNewCard) {
           filtered.push({

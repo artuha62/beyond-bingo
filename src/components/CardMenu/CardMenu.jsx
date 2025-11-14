@@ -22,17 +22,17 @@ const CardMenu = ({
       }}
     >
       <button className={styles.icon} onClick={onRename}>
-        <FaPencil size={22} />
+        <FaPencil size={30} />
       </button>
       <button className={styles.icon} onClick={onResetCounter}>
-        <RiResetLeftFill size={26} />
+        <RiResetLeftFill size={35} />
       </button>
       <button className={styles.icon} onClick={onDelete}>
-        <MdDeleteOutline size={26} />
+        <MdDeleteOutline size={35} />
       </button>
 
       <button className={styles.icon} onClick={onClose}>
-        <TiDelete size={26} />
+        <TiDelete size={40} />
       </button>
     </div>
   )
