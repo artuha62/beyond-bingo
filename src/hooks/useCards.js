@@ -1,24 +1,169 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const useCards = () => {
+  const initialCards = [
+    {
+      id: 1,
+      text: 'ПУТИН ЗАПУСТИЛ КАРТОШКУ В КОСМОС',
+      count: 5,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 2,
+      text: 'ТРАМП СПОРИТ С ГОЛУБЕМ',
+      count: 2,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 3,
+      text: 'МАСК ПРОДАЛ ПРАВДУ ЗА $8',
+      count: 7,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 4,
+      text: 'ВАЛАКАС СТАЛ ПРЕЗИДЕНТОМ ПОДЪЕЗДА',
+      count: 9,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 5,
+      text: 'ПУТИН ИЩЕТ ВКУСНУЮ СЕЛЁДКУ',
+      count: 1,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 6,
+      text: 'ТРАМП ПОСТРОИЛ ДИВАН',
+      count: 4,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 7,
+      text: 'МАСК ПОКУПАЕТ ТОРТЫ',
+      count: 6,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 8,
+      text: 'ВАЛАКАС ВЁЛ САММИТ В МАЙНКРАФТЕ',
+      count: 3,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 9,
+      text: 'ПУТИН ПОДПИСАЛ КОТА',
+      count: 12,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 10,
+      text: 'ТРАМП СЛОМАЛ ЛЕДЕНЕЦ',
+      count: 8,
+      isFlipped: true,
+      isEditing: false,
+    },
+
+    {
+      id: 11,
+      text: 'МАСК ИЗОБРЁЛ САМОГРЯЗНУЮ ЛОЖКУ',
+      count: 11,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 12,
+      text: 'ВАЛАКАС ПРОВЁЛ ДЕБАТЫ С ЛОСЕМ',
+      count: 5,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 13,
+      text: 'ПУТИН ИГРАЕТ НА БАЗУКЕ',
+      count: 7,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 14,
+      text: 'ТРАМП ЗАПУТАЛСЯ В ШАРФЕ',
+      count: 2,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 15,
+      text: 'МАСК КУПИЛ СЛУЧАЙНЫЙ МАГАЗИН',
+      count: 9,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 16,
+      text: 'ВАЛАКАС ОТКРЫЛ ПАРТИЮ ГИПЕРБОРОВ',
+      count: 4,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 17,
+      text: 'ПУТИН ПОТЕРЯЛ ПУЛЬТ',
+      count: 3,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 18,
+      text: 'ТРАМП РУГАЕТСЯ С ТУМБОЙ',
+      count: 6,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 19,
+      text: 'МАСК ПОСТРОИЛ РАКЕТУ ИЗ ПАКЕТОВ',
+      count: 10,
+      isFlipped: true,
+      isEditing: false,
+    },
+    {
+      id: 20,
+      text: 'ВАЛАКАС ПРЕОБРАЗОВАЛСЯ В ПОЛИТЛЕГЕНДУ',
+      count: 8,
+      isFlipped: true,
+      isEditing: false,
+    },
+  ]
+
   const timerRef = useRef(null)
 
   // ---STATE---
-  const [cards, setCards] = useState(() => {
-    const saved = localStorage.getItem('cards')
-    return saved
-      ? JSON.parse(saved)
-      : [
-          {
-            id: Date.now(),
-            text: '',
-            count: 0,
-            isFlipped: false,
-            isEditing: true,
-            shouldSpawnNext: true,
-          },
-        ]
-  })
+  // const [cards, setCards] = useState(() => {
+  //   const saved = localStorage.getItem('cards')
+  //   return saved
+  //     ? JSON.parse(saved)
+  //     : [
+  //         {
+  //           id: Date.now(),
+  //           text: '',
+  //           count: 0,
+  //           isFlipped: false,
+  //           isEditing: true,
+  //         },
+  //       ]
+  // })
+
+  const [cards, setCards] = useState(initialCards)
 
   const [menu, setMenu] = useState({
     openCardId: null,
@@ -41,59 +186,59 @@ const useCards = () => {
   // ---CARDS LOGIC---
 
   const handleFlip = useCallback((cardId) => {
-    setCards((prev) =>
-      prev.map((card) =>
+    setCards((prevCards) =>
+      prevCards.map((card) =>
         card.id === cardId && !card.text
-          ? { ...card, isFlipped: true, isEditing: true, shouldSpawnNext: true }
+          ? { ...card, isFlipped: true, isEditing: true }
           : card
       )
     )
   }, [])
 
   const handleInputChange = useCallback((cardId, value) => {
-    setCards((prev) =>
-      prev.map((card) => (card.id === cardId ? { ...card, text: value } : card))
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        card.id === cardId ? { ...card, text: value } : card
+      )
     )
   }, [])
 
   const handleIncrementCounter = useCallback((cardId) => {
-    setCards((prev) =>
-      prev.map((card) =>
+    setCards((prevCards) =>
+      prevCards.map((card) =>
         card.id === cardId ? { ...card, count: card.count + 1 } : card
       )
     )
   }, [])
 
   const handleSaveCard = useCallback((cardId) => {
-    setCards((prev) => {
-      const current = prev.find((c) => c.id === cardId)
-      if (!current?.text?.trim()) return prev
+    setCards((prevCards) => {
+      const current = prevCards.find((card) => card.id === cardId)
+      if (!current?.text?.trim()) return prevCards
 
-      const spawnNext = current.shouldSpawnNext
+      const isLastCard = prevCards[prevCards.length - 1]?.id === cardId
 
-      const updated = prev.map((card) =>
+      const updatedCard = prevCards.map((card) =>
         card.id === cardId
           ? {
               ...card,
               text: card.text.toUpperCase(),
               isEditing: false,
-              shouldSpawnNext: false,
             }
           : card
       )
 
-      if (spawnNext) {
-        updated.push({
+      if (isLastCard && prevCards.length < 20) {
+        updatedCard.push({
           id: Date.now(),
           text: '',
           count: 0,
           isFlipped: false,
           isEditing: true,
-          shouldSpawnNext: true,
         })
       }
 
-      return updated
+      return updatedCard
     })
   }, [])
 
@@ -118,7 +263,7 @@ const useCards = () => {
         const rect = ref.current?.getBoundingClientRect()
 
         const menuWidth = 220
-        const menuHeight = 74
+        const menuHeight = 64
 
         if (!rect) return
 
@@ -151,27 +296,42 @@ const useCards = () => {
       position: null,
     })
 
-    setCards((prev) =>
-      prev.map((card) =>
+    setCards((prevCards) =>
+      prevCards.map((card) =>
         card.id === cardId ? { ...card, isRemoving: true } : card
       )
     )
 
     setTimeout(() => {
-      setCards((prev) => prev.filter((c) => c.id !== cardId))
+      setCards((prevCards) => {
+        const filtered = prevCards.filter((card) => card.id !== cardId)
+
+        const lastCard = filtered[filtered.length - 1]
+        const needsNewCard = filtered.length < 20 && lastCard?.text
+
+        if (needsNewCard) {
+          filtered.push({
+            id: Date.now(),
+            text: '',
+            count: 0,
+            isFlipped: false,
+            isEditing: true,
+          })
+        }
+        return filtered
+      })
     }, 250)
   }, [])
 
   const handleRenameCard = useCallback(
     (cardId) => {
       clearTimer()
-      setCards((prev) =>
-        prev.map((card) =>
+      setCards((prevCards) =>
+        prevCards.map((card) =>
           card.id === cardId
             ? {
                 ...card,
                 isEditing: true,
-                shouldSpawnNext: false,
               }
             : card
         )
@@ -183,6 +343,19 @@ const useCards = () => {
     },
     [clearTimer]
   )
+
+  const handleResetCounter = useCallback((cardId) => {
+    setMenu({
+      openCardId: null,
+      position: null,
+    })
+
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        card.id === cardId ? { ...card, count: 0 } : card
+      )
+    )
+  }, [])
 
   const handleMouseUp = useCallback(() => {
     clearTimer()
@@ -200,6 +373,7 @@ const useCards = () => {
     handleCloseMenu,
     handleDeleteCard,
     handleRenameCard,
+    handleResetCounter,
     handleMouseUp,
   }
 }

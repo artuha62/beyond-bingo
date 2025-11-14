@@ -4,15 +4,13 @@
 
   display: flex;
   justify-content: space-between;
-  column-gap: 15px;
+  column-gap: 12px;
 
   background: #ffbbe1;
-  padding: 16px;
+  padding: 10px;
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow:
-    0 10px 25px rgba(0, 0, 0, 0.08),
-    0 2px 5px rgba(0, 0, 0, 0.04);
+  border: 2px solid rgba(0, 0, 0, 0.02);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   animation: scaleIn 0.2s ease forwards;
 }
@@ -30,8 +28,8 @@
 
 button {
   border: none;
-  background: #f9f9ed;
-  padding: 8px 14px;
+  background: #fff;
+  padding: 6px;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -40,5 +38,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 40px;
+  aspect-ratio: 1;
   color: #ffbbe1;
 }

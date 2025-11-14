@@ -14,6 +14,7 @@ const Card = memo(function Card({
   handleCloseMenu,
   handleDeleteCard,
   handleRenameCard,
+  handleResetCounter,
   handleMouseUp,
 }) {
   const cardRef = useRef(null)
@@ -43,6 +44,7 @@ const Card = memo(function Card({
     <div
       ref={cardRef}
       className={`flip-card
+        ${!card.text ? 'flip-card--new' : ''} 
         ${card.isFlipped ? 'flipped' : ''} 
         ${card.isRemoving ? 'removing' : ''}
       `}
@@ -50,8 +52,10 @@ const Card = memo(function Card({
       onPointerUp={handleMouseUp}
     >
       {/* Передняя сторона */}
-      <div className="flip-card-plus" onClick={() => handleFlip(card.id)}>
-        <p className="hint">+</p>
+      <div className="flip-card-plus-pulse">
+        <div className="flip-card-plus" onClick={() => handleFlip(card.id)}>
+          <p className="hint">+</p>
+        </div>
       </div>
 
       {/* Задняя сторона */}
@@ -95,6 +99,7 @@ const Card = memo(function Card({
             position={menu.position}
             onRename={() => handleRenameCard(card.id)}
             onDelete={() => handleDeleteCard(card.id)}
+            onResetCounter={() => handleResetCounter(card.id)}
             onClose={handleCloseMenu}
           />
         )}
