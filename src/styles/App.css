@@ -11,7 +11,6 @@
 
 body {
   font-family: 'Jost', sans-serif;
-  background: #ffbbe1;
 }
 
 /* =====================================
@@ -24,6 +23,7 @@ body {
   width: 1366px;
   height: 1024px;
   padding: 40px;
+  background: #ffbbe1;
 }
 
 .global-overlay {
