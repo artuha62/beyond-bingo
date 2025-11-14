@@ -137,11 +137,11 @@ const useCards = () => {
       isEditing: false,
     },
     {
-      id: 20,
-      text: 'ВАЛАКАС ПРЕОБРАЗОВАЛСЯ В ПОЛИТЛЕГЕНДУ',
-      count: 8,
-      isFlipped: true,
-      isEditing: false,
+      id: Date.now(),
+      text: '',
+      count: 0,
+      isFlipped: false,
+      isEditing: true,
     },
   ]
 
