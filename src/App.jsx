@@ -1,4 +1,4 @@
-import Bingo from './components/Bingo.jsx'
+import Bingo from './components/Bingo/Bingo.jsx'
 import { CardsProvider } from './context/CardsContext.jsx'
 
 const App = () => {

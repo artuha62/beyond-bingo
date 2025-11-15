@@ -1,7 +1,7 @@
-import Card from './Card/Card.jsx'
-import Title from './Title.jsx'
+import Card from '../Card/Card.jsx'
+import Title from '../Title/Title.jsx'
 import { useContext } from 'react'
-import { CardsContext } from '../context/CardsContext.jsx'
+import { CardsContext } from '../../context/CardsContext.jsx'
 
 const Bingo = () => {
   const { cards, menu, handleCloseMenu } = useContext(CardsContext)
