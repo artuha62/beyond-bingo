@@ -1,14 +1,11 @@
-import useCards from './hooks/useCards.js'
-import Title from './components/Title.jsx'
 import Bingo from './components/Bingo.jsx'
+import { CardsProvider } from './context/CardsContext.jsx'
 
-function App() {
-  const { ...cardsData } = useCards()
-
+const App = () => {
   return (
-    <div className="bingo">
-      <Bingo {...cardsData} />
-    </div>
+    <CardsProvider>
+      <Bingo />
+    </CardsProvider>
   )
 }
 
