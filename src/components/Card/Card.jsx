@@ -17,6 +17,15 @@ const Card = ({ card }) => {
   const cardRef = useRef(null)
   const inputRef = useRef(null)
 
+  // front side unmount
+  useEffect(() => {
+    setTimeout(() => {
+      if (!isFlipped) return
+      setShowFrontSide(false)
+    }, 300)
+  }, [isFlipped])
+
+  //autofocus after flip animation
   useEffect(() => {
     if (!isEditing) return
 
@@ -36,14 +45,6 @@ const Card = ({ card }) => {
 
     return () => node.removeEventListener('transitionend', handleEnd)
   }, [isEditing])
-
-  // front side unmount
-  useEffect(() => {
-    setTimeout(() => {
-      if (!isFlipped) return
-      setShowFrontSide(false)
-    }, 300)
-  }, [isFlipped])
 
   return (
     <div
