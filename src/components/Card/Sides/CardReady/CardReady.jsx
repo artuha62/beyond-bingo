@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { CardsContext } from '../../../../context/CardsContext.jsx'
-import base from '../../Surface/CardBase.module.css'
+import { surface } from '../../Surface/CardSurface.module.css'
 import styles from './CardReady.module.css'
 
 const CardReady = ({ card: { id, text, count } }) => {
@@ -8,7 +8,7 @@ const CardReady = ({ card: { id, text, count } }) => {
 
   return (
     <div
-      className={`${base.base} ${styles.readySide}`}
+      className={`${surface} ${styles.readySide}`}
       onClick={() => handleIncrementCounter(id)}
     >
       <span className={styles.text}>{text}</span>

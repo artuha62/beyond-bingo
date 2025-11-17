@@ -1,6 +1,7 @@
 :root {
   --accent-color: black;
   --background-color: #f5c507;
+  --shadow: rgba(99, 99, 99, 0.3) 0 2px 8px 0;
 }
 
 ::selection {

@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { CardsContext } from '../../../../context/CardsContext.jsx'
-import base from '../../Surface/CardBase.module.css'
+import { surface } from '../../Surface/CardSurface.module.css'
 import styles from './CardBack.module.css'
 
 const CardBack = ({ card: { id, text }, inputRef }) => {
@@ -11,10 +11,11 @@ const CardBack = ({ card: { id, text }, inputRef }) => {
       inputRef.current.focus()
       inputRef.current.select()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div className={`${base.base} ${styles.backSide}`}>
+    <div className={`${surface} ${styles.backSide}`}>
       <form
         className={styles.form}
         onBlur={(event) => handleSubmit(id, event)}
