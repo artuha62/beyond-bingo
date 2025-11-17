@@ -8,6 +8,7 @@ const useCards = () => {
   const { user } = useAuth()
   const timerRef = useRef(null)
   const syncRef = useRef({})
+  const hasLoaded = useRef(false)
 
   // --- STATE ---
   const [cards, setCards] = useState([])
@@ -18,9 +19,13 @@ const useCards = () => {
     position: null,
   })
 
-  // --- LOAD CARDS FROM SUPABASE ---
   useEffect(() => {
     if (!user) return
+
+    if (hasLoaded.current) {
+      return
+    }
+    hasLoaded.current = true
 
     const loadCards = async () => {
       setLoading(true)
@@ -31,14 +36,10 @@ const useCards = () => {
         .eq('user_id', user.id)
         .order('created_at', { ascending: true })
 
-      if (error) {
-        console.error(error)
-        setLoading(false)
-        return
-      }
+      if (error) return
 
       if (!data || data.length === 0) {
-        const { data: newCard } = await supabase
+        const { data: newCards, error: insertError } = await supabase
           .from('cards')
           .insert({
             user_id: user.id,
@@ -47,14 +48,17 @@ const useCards = () => {
           })
           .select()
 
+        if (insertError) return
+
         setCards(
-          newCard.map((card) => ({
+          newCards.map((card) => ({
             ...card,
             isFlipped: false,
             isEditing: true,
             isRemoving: false,
           }))
         )
+
         setLoading(false)
         return
       }
