@@ -95,41 +95,35 @@ const useCards = () => {
     })
   }, [])
 
-  const handleSubmit = useCallback(
-    (cardId, event) => {
-      event.preventDefault()
-      event.stopPropagation()
-      handleSaveCard(cardId)
-    },
-    [handleSaveCard]
-  )
+  const handleSubmit = useCallback((cardId, event) => {
+    event.preventDefault()
+    event.stopPropagation()
+    handleSaveCard(cardId)
+  }, [])
 
   // ---MENU LOGIC---
-  const handleOpenMenu = useCallback(
-    (cardId, isEditing, ref) => {
-      if (isEditing) return
+  const handleOpenMenu = useCallback((cardId, isEditing, ref) => {
+    if (isEditing) return
 
-      clearTimer()
+    clearTimer()
 
-      timerRef.current = setTimeout(() => {
-        const rect = ref.current?.getBoundingClientRect()
+    timerRef.current = setTimeout(() => {
+      const rect = ref.current?.getBoundingClientRect()
 
-        const menuWidth = 289
-        const menuHeight = 79
+      const menuWidth = 289
+      const menuHeight = 79
 
-        if (!rect) return
+      if (!rect) return
 
-        setMenu({
-          openCardId: cardId,
-          position: {
-            x: rect.left + (rect.width - menuWidth) / 2,
-            y: rect.top + (rect.height - menuHeight) / 2,
-          },
-        })
-      }, 400)
-    },
-    [clearTimer]
-  )
+      setMenu({
+        openCardId: cardId,
+        position: {
+          x: rect.left + (rect.width - menuWidth) / 2,
+          y: rect.top + (rect.height - menuHeight) / 2,
+        },
+      })
+    }, 400)
+  }, [])
 
   const handleCloseMenu = useCallback(() => {
     clearTimer()
@@ -137,7 +131,7 @@ const useCards = () => {
       openCardId: null,
       position: null,
     })
-  }, [clearTimer])
+  }, [])
 
   const handleDeleteCard = useCallback((cardId) => {
     const confirmDelete = confirm('Ты точно хочешь удалить эту карточку?')
@@ -172,29 +166,26 @@ const useCards = () => {
         }
         return filtered
       })
-    }, 250)
+    }, 300)
   }, [])
 
-  const handleRenameCard = useCallback(
-    (cardId) => {
-      clearTimer()
-      setCards((prevCards) =>
-        prevCards.map((card) =>
-          card.id === cardId
-            ? {
-                ...card,
-                isEditing: true,
-              }
-            : card
-        )
+  const handleRenameCard = useCallback((cardId) => {
+    clearTimer()
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        card.id === cardId
+          ? {
+              ...card,
+              isEditing: true,
+            }
+          : card
       )
-      setMenu({
-        openCardId: null,
-        position: null,
-      })
-    },
-    [clearTimer]
-  )
+    )
+    setMenu({
+      openCardId: null,
+      position: null,
+    })
+  }, [])
 
   const handleResetCounter = useCallback((cardId) => {
     setMenu({
@@ -211,7 +202,7 @@ const useCards = () => {
 
   const handleMouseUp = useCallback(() => {
     clearTimer()
-  }, [clearTimer])
+  }, [])
 
   return {
     cards,
