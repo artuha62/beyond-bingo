@@ -1,8 +1,9 @@
-import Card from '../Card/Card.jsx'
-import Title from '../Title/Title.jsx'
+import Card from '../components/Card/Card.jsx'
+import Title from '../components/Title/Title.jsx'
 import { useContext } from 'react'
-import { CardsContext } from '../../context/CardsContext.jsx'
-import styles from './Bingo.module.css'
+import { CardsContext } from '../context/CardsContext.jsx'
+import styles from '../components/Bingo/Bingo.module.css'
+import LogoutButton from '../components/UI/LogoutButton.jsx'
 
 const Bingo = () => {
   const { cards, menu, handleCloseMenu } = useContext(CardsContext)
@@ -12,6 +13,7 @@ const Bingo = () => {
   return (
     <div className={styles.container}>
       <Title />
+      <LogoutButton />
       {isMenuOpen && (
         <div className={styles.overlay} onClick={handleCloseMenu}></div>
       )}
