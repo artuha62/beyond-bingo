@@ -1,0 +1,19 @@
+:root {
+  --accent-color: black;
+  --background-color: #f5c507;
+}
+
+::selection {
+  background: var(--accent-color);
+  color: var(--background-color);
+}
+
+::-moz-selection {
+  background: var(--accent-color);
+  color: var(--background-color);
+}
+
+body {
+  font-family: 'Jost', sans-serif;
+  color: var(--accent-color);
+}

@@ -1,141 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const useCards = () => {
-  const initialCards = [
-    {
-      id: 1,
-      text: 'ПУТИН ЗАПУСТИЛ КАРТОШКУ В КОСМОС',
-      count: 5,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 2,
-      text: 'ТРАМП СПОРИТ С ГОЛУБЕМ',
-      count: 2,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 3,
-      text: 'МАСК ПРОДАЛ ПРАВДУ ЗА $8',
-      count: 7,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 4,
-      text: 'ВАЛАКАС СТАЛ ПРЕЗИДЕНТОМ ПОДЪЕЗДА',
-      count: 9,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 5,
-      text: 'ПУТИН ИЩЕТ ВКУСНУЮ СЕЛЁДКУ',
-      count: 1,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 6,
-      text: 'ТРАМП ПОСТРОИЛ ДИВАН',
-      count: 4,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 7,
-      text: 'МАСК ПОКУПАЕТ ТОРТЫ',
-      count: 6,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 8,
-      text: 'ВАЛАКАС ВЁЛ САММИТ В МАЙНКРАФТЕ',
-      count: 3,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 9,
-      text: 'ПУТИН ПОДПИСАЛ КОТА',
-      count: 12,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 10,
-      text: 'ТРАМП СЛОМАЛ ЛЕДЕНЕЦ',
-      count: 8,
-      isFlipped: true,
-      isEditing: false,
-    },
-
-    {
-      id: 11,
-      text: 'МАСК ИЗОБРЁЛ САМОГРЯЗНУЮ ЛОЖКУ',
-      count: 11,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 12,
-      text: 'ВАЛАКАС ПРОВЁЛ ДЕБАТЫ С ЛОСЕМ',
-      count: 5,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 13,
-      text: 'ПУТИН ИГРАЕТ НА БАЗУКЕ',
-      count: 7,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 14,
-      text: 'ТРАМП ЗАПУТАЛСЯ В ШАРФЕ',
-      count: 2,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: 15,
-      text: 'МАСК КУПИЛ СЛУЧАЙНЫЙ МАГАЗИН',
-      count: 9,
-      isFlipped: true,
-      isEditing: false,
-    },
-    {
-      id: Date.now(),
-      text: '',
-      count: 0,
-      isFlipped: false,
-      isEditing: true,
-    },
-  ]
-
   const timerRef = useRef(null)
 
   // ---STATE---
-  // const [cards, setCards] = useState(() => {
-  //   const saved = localStorage.getItem('cards')
-  //   return saved
-  //     ? JSON.parse(saved)
-  //     : [
-  //         {
-  //           id: Date.now(),
-  //           text: '',
-  //           count: 0,
-  //           isFlipped: false,
-  //           isEditing: true,
-  //         },
-  //       ]
-  // })
-
-  const [cards, setCards] = useState(initialCards)
+  const [cards, setCards] = useState(() => {
+    const saved = localStorage.getItem('cards')
+    return saved
+      ? JSON.parse(saved)
+      : [
+          {
+            id: Date.now(),
+            text: '',
+            count: 0,
+            isFlipped: false,
+            isEditing: true,
+          },
+        ]
+  })
 
   const [menu, setMenu] = useState({
     openCardId: null,
@@ -156,7 +38,6 @@ const useCards = () => {
   }, [])
 
   // ---CARDS LOGIC---
-
   const handleFlip = useCallback((cardId) => {
     setCards((prevCards) =>
       prevCards.map((card) =>
@@ -224,7 +105,6 @@ const useCards = () => {
   )
 
   // ---MENU LOGIC---
-
   const handleOpenMenu = useCallback(
     (cardId, isEditing, ref) => {
       if (isEditing) return
@@ -333,7 +213,6 @@ const useCards = () => {
     clearTimer()
   }, [clearTimer])
 
-  // ---EXPORT---
   return {
     cards,
     menu,

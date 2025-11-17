@@ -1,3 +1,2 @@
 import './normalize.css'
-
-import './App.css'
+import './globals.css'

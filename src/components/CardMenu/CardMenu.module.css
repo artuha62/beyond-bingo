@@ -6,7 +6,7 @@
   justify-content: space-between;
   column-gap: 15px;
 
-  background: teal;
+  background: var(--background-color);
   padding: 10px;
   border-radius: 10px;
   border: 2px solid rgba(0, 0, 0, 0.02);
@@ -32,6 +32,7 @@ button {
   padding: 6px;
   border-radius: 8px;
   cursor: pointer;
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
 }
 
 .icon {
@@ -40,5 +41,4 @@ button {
   justify-content: center;
   width: 55px;
   aspect-ratio: 1;
-  color: #ffbbe1;
 }

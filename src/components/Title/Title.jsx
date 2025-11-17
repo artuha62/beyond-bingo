@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import styles from './Title.module.css'
 
 const Title = () => {
   const [title, setTitle] = useState('Bingo')
@@ -9,10 +10,8 @@ const Title = () => {
 
   useEffect(() => {
     if (isEditing) {
-      setTimeout(() => {
-        inputRef.current?.focus()
-        inputRef.current?.select()
-      }, 0)
+      inputRef.current?.focus()
+      inputRef.current?.select()
     }
   }, [isEditing])
 
@@ -32,20 +31,23 @@ const Title = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault() // запрещаем перенос строки
-      handleSubmit() // подтверждаем
+      event.preventDefault()
+      handleSubmit()
     }
   }
 
   return (
     <div
-      className="title-wrapper"
+      className={styles.wrapper}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
     >
       <input
         ref={inputRef}
-        className={`title-input ${isEditing ? 'editing' : 'readonly'}`}
+        className={[
+          styles.input,
+          isEditing ? styles.editing : styles.readonly,
+        ].join(' ')}
         value={title}
         onChange={(event) => setTitle(event.target.value)}
         onBlur={handleSubmit}

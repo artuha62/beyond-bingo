@@ -1,0 +1,17 @@
+.base {
+  position: absolute;
+  inset: 0;
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff;
+  border-radius: 16px;
+  border: 6px solid rgba(0, 0, 0, 0.05);
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
+
+  backface-visibility: hidden;
+  cursor: pointer;
+}

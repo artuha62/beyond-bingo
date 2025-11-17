@@ -2,21 +2,22 @@ import Card from '../Card/Card.jsx'
 import Title from '../Title/Title.jsx'
 import { useContext } from 'react'
 import { CardsContext } from '../../context/CardsContext.jsx'
+import styles from './Bingo.module.css'
 
 const Bingo = () => {
   const { cards, menu, handleCloseMenu } = useContext(CardsContext)
 
-  const isMenuOpen = menu.openCardId !== null
+  const isMenuOpen = menu.openCardId !== null || undefined
 
   return (
-    <div className="bingo">
+    <div className={styles.container}>
       <Title />
       {isMenuOpen && (
-        <div className="global-overlay" onClick={handleCloseMenu}></div>
+        <div className={styles.overlay} onClick={handleCloseMenu}></div>
       )}
-      <div className="cards-grid">
+      <div className={styles.cardsGrid}>
         {cards.map((card) => (
-          <div key={card.id} className="card-wrapper">
+          <div key={card.id} className={styles.cardEaseIn}>
             <Card card={card} />
           </div>
         ))}

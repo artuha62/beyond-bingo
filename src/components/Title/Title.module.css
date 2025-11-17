@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  text-transform: uppercase;
+  font-size: 85px;
+  font-weight: 800;
+  text-align: center;
+  font-family: 'Jost', sans-serif;
+
+  border: none;
+  outline: none;
+  background: transparent;
+
+  color: var(--accent-color);
+}
+
+.readonly {
+  pointer-events: none;
+  user-select: none;
+  caret-color: transparent;
+}
+
+.editing {
+  pointer-events: auto;
+  caret-color: var(--accent-color);
+}

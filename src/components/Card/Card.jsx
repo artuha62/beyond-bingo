@@ -1,20 +1,24 @@
-import { memo, useContext, useEffect } from 'react'
+import { memo, useContext, useEffect, useState } from 'react'
 import CardMenu from '../CardMenu/CardMenu.jsx'
 import MenuPortal from '../../MenuPortal.jsx'
 import { useRef } from 'react'
-import CardFront from './CardFront.jsx'
-import CardBack from './CardBack.jsx'
-import CardReady from './CardReady.jsx'
+import CardFront from './Sides/CardFront/CardFront.jsx'
+import CardBack from './Sides/CardBack/CardBack.jsx'
+import CardReady from './Sides/CardReady/CardReady.jsx'
 import { CardsContext } from '../../context/CardsContext.jsx'
+import styles from './Card.module.css'
 
-const Card = memo(function Card({ card }) {
+const Card = ({ card }) => {
+  const { id, isFlipped, isEditing, isRemoving } = card
   const { menu, handleOpenMenu, handleMouseUp } = useContext(CardsContext)
+
+  const [showFrontSide, setShowFrontSide] = useState(true)
 
   const cardRef = useRef(null)
   const inputRef = useRef(null)
 
   useEffect(() => {
-    if (!card.isEditing) return
+    if (!isEditing) return
 
     const node = cardRef.current
     if (!node) return
@@ -31,28 +35,42 @@ const Card = memo(function Card({ card }) {
     node.addEventListener('transitionend', handleEnd)
 
     return () => node.removeEventListener('transitionend', handleEnd)
-  }, [card.isEditing])
+  }, [isEditing])
+
+  // front side unmount
+  useEffect(() => {
+    setTimeout(() => {
+      if (!isFlipped) return
+      setShowFrontSide(false)
+    }, 300)
+  }, [isFlipped])
 
   return (
     <div
       ref={cardRef}
-      className={`card ${card.isFlipped ? 'flipped' : ''} ${card.isRemoving ? 'removing' : ''}`}
-      onPointerDown={() => handleOpenMenu(card.id, card.isEditing, cardRef)}
+      className={[
+        styles.card,
+        isFlipped ? styles.flipped : '',
+        isRemoving ? styles.removing : '',
+      ].join(' ')}
+      onPointerDown={() => handleOpenMenu(id, isEditing, cardRef)}
       onPointerUp={handleMouseUp}
     >
-      <CardFront card={card} />
+      <div className={styles.inner}>
+        {showFrontSide && <CardFront card={card} />}
 
-      {card.isEditing ? (
-        <CardBack card={card} inputRef={inputRef} />
-      ) : (
-        <CardReady card={card} />
-      )}
+        {isEditing ? (
+          <CardBack card={card} inputRef={inputRef} />
+        ) : (
+          <CardReady card={card} />
+        )}
+      </div>
 
       <MenuPortal>
-        {menu.openCardId === card.id && <CardMenu card={card} menu={menu} />}
+        {menu.openCardId === id && <CardMenu card={card} menu={menu} />}
       </MenuPortal>
     </div>
   )
-})
+}
 
-export default Card
+export default memo(Card)

@@ -1,0 +1,34 @@
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+  user-select: none;
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+/* flip animation */
+.card.flipped .inner {
+  transform: rotateY(180deg);
+}
+
+.removing {
+  animation: cardOut 0.3s ease forwards;
+}
+
+@keyframes cardOut {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
