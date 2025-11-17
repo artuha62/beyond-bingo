@@ -9,6 +9,8 @@ const Registration = () => {
     event.preventDefault()
     const { error } = await supabase.auth.signUp({ email, password })
 
+    if (email) alert('Вы успешно зарегистрировались!')
+
     if (error) {
       alert(error.message)
     }
@@ -43,6 +45,7 @@ const Registration = () => {
             name="password"
             value={password}
             placeholder="Password"
+            type="password"
             required
             onChange={(event) => setPassword(event.target.value)}
           />

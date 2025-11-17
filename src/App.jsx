@@ -1,9 +1,8 @@
 import Bingo from './pages/Bingo.jsx'
 import { CardsProvider } from './context/CardsContext.jsx'
 import { Navigate, Route, Routes } from 'react-router'
-import Registration from './pages/Registration.jsx'
-import Login from './pages/Login.jsx'
 import { useAuth } from './hooks/useAuth.js'
+import Auth from './pages/Auth.jsx'
 
 const App = () => {
   const { user } = useAuth()
@@ -18,22 +17,14 @@ const App = () => {
               <Bingo />
             </CardsProvider>
           ) : (
-            <Navigate to="/login" replace />
+            <Navigate to="/auth" />
           )
         }
       />
 
-      <Route
-        path="/login"
-        element={user ? <Navigate to="/" replace /> : <Login />}
-      />
+      <Route path="/auth" element={user ? <Navigate to="/" /> : <Auth />} />
 
-      <Route
-        path="/registration"
-        element={user ? <Navigate to="/" replace /> : <Registration />}
-      />
-
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
 }

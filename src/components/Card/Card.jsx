@@ -51,7 +51,7 @@ const Card = ({ card }) => {
       ref={cardRef}
       className={[
         styles.card,
-        isFlipped ? styles.flipped : '',
+        card.text || isFlipped ? styles.flipped : '',
         isRemoving ? styles.removing : '',
       ].join(' ')}
       onPointerDown={() => handleOpenMenu(id, isEditing, cardRef)}
