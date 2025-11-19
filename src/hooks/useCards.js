@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { supabase } from '../supabase.js'
 import { useAuth } from './useAuth.js'
+import cardsAPI from '../api/cardsAPI.js'
 
 const MAX_CARDS = 16
 
@@ -30,41 +30,40 @@ const useCards = () => {
     const loadCards = async () => {
       setLoading(true)
 
-      const { data, error } = await supabase
-        .from('cards')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: true })
+      let cardsData = []
 
-      if (error) return
+      try {
+        cardsData = await cardsAPI.getAll(user.id)
+      } catch (error) {
+        console.log('Load cards error:', error)
+        return
+      }
 
-      if (!data || data.length === 0) {
-        const { data: newCards, error: insertError } = await supabase
-          .from('cards')
-          .insert({
-            user_id: user.id,
-            text: '',
-            count: 0,
-          })
-          .select()
+      if (!cardsData || cardsData.length === 0) {
+        let newCard
 
-        if (insertError) return
+        try {
+          newCard = await cardsAPI.create(user.id)
+        } catch (error) {
+          console.log('Create card error:', error)
+          return
+        }
 
-        setCards(
-          newCards.map((card) => ({
-            ...card,
+        setCards([
+          {
+            ...newCard,
             isFlipped: false,
             isEditing: true,
             isRemoving: false,
-          }))
-        )
+          },
+        ])
 
         setLoading(false)
         return
       }
 
       setCards(
-        data.map((card) => ({
+        cardsData.map((card) => ({
           ...card,
           isFlipped: false,
           isEditing: false,
@@ -87,40 +86,31 @@ const useCards = () => {
   }, [])
 
   const updateCard = useCallback(async (cardId, updates) => {
-    const { error } = await supabase
-      .from('cards')
-      .update(updates)
-      .eq('id', cardId)
-
-    if (error) {
-      console.error(error)
-      return
-    }
-
     setCards((prevCards) =>
       prevCards.map((card) =>
         card.id === cardId ? { ...card, ...updates } : card
       )
     )
+
+    try {
+      await cardsAPI.update(cardId, updates)
+    } catch (error) {
+      console.log('Update card error:', error)
+    }
   }, [])
 
   const createNewCard = useCallback(async () => {
-    const { data, error } = await supabase
-      .from('cards')
-      .insert({
-        user_id: user.id,
-        text: '',
-        count: 0,
-      })
-      .select()
+    let createdCard
 
-    if (error) {
-      console.error(error)
-      return null
+    try {
+      createdCard = await cardsAPI.create(user.id)
+    } catch (error) {
+      console.log('Create card error:', error)
+      return
     }
 
     const newCard = {
-      ...data[0],
+      ...createdCard,
       isFlipped: false,
       isEditing: true,
       isRemoving: false,
@@ -157,14 +147,15 @@ const useCards = () => {
           card.id === cardId ? { ...card, count: card.count + 1 } : card
         )
 
-        const current = updated.find((card) => card.id === cardId)
+        const newCount = updated.find((c) => c.id === cardId).count
 
         if (syncRef.current[cardId]) {
           clearTimeout(syncRef.current[cardId])
         }
 
         syncRef.current[cardId] = setTimeout(() => {
-          updateCard(cardId, { count: current.count })
+          updateCard(cardId, { count: newCount })
+
           delete syncRef.current[cardId]
         }, 500)
 
@@ -188,6 +179,8 @@ const useCards = () => {
             : card
         )
       )
+
+      await updateCard(cardId, { text: upperText })
 
       const lastCard = cards[cards.length - 1]
       const needNewCard = cards.length < MAX_CARDS && lastCard?.text
@@ -270,9 +263,10 @@ const useCards = () => {
 
             return filtered
           })
-          await supabase.from('cards').delete().eq('id', cardId)
+
+          await cardsAPI.delete(cardId)
         } catch (error) {
-          console.error('Error deleting card:', error)
+          console.error('Delete card error:', error)
         }
       }, 300)
     },
