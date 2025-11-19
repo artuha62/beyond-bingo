@@ -40,6 +40,17 @@ const cardsAPI = {
 
     if (error) throw error
   },
+
+  async deleteAll(userId) {
+    const { data, error } = await supabase
+      .from('cards')
+      .delete()
+      .eq('user_id', userId)
+
+    if (error) throw error
+
+    return data
+  },
 }
 
 export default cardsAPI

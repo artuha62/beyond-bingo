@@ -53,7 +53,7 @@ const useCards = () => {
           {
             ...newCard,
             isFlipped: false,
-            isEditing: true,
+            isEditing: false,
             isRemoving: false,
           },
         ])
@@ -65,7 +65,7 @@ const useCards = () => {
       setCards(
         cardsData.map((card) => ({
           ...card,
-          isFlipped: false,
+          isFlipped: !!card.text,
           isEditing: false,
           isRemoving: false,
         }))
@@ -112,7 +112,7 @@ const useCards = () => {
     const newCard = {
       ...createdCard,
       isFlipped: false,
-      isEditing: true,
+      isEditing: false,
       isRemoving: false,
     }
 
@@ -186,7 +186,6 @@ const useCards = () => {
       const needNewCard = cards.length < MAX_CARDS && lastCard?.text
 
       if (needNewCard) {
-        updateCard(cardId, { text: upperText })
         createNewCard()
       }
     },
@@ -201,6 +200,21 @@ const useCards = () => {
     },
     [handleSaveCard]
   )
+
+  const handleDeleteAllCards = async () => {
+    const confirmDeleteAll = confirm('Удалить все карточки?')
+    if (!confirmDeleteAll) return
+
+    setCards([])
+
+    try {
+      await cardsAPI.deleteAll(user.id)
+
+      await createNewCard()
+    } catch (error) {
+      console.log('Delete all cards error:', error)
+    }
+  }
 
   // --- MENU LOGIC ---
   const handleOpenMenu = useCallback(
@@ -312,6 +326,7 @@ const useCards = () => {
     handleFlip,
     handleInputChange,
     handleSubmit,
+    handleDeleteAllCards,
     handleIncrementCounter,
     handleOpenMenu,
     handleCloseMenu,

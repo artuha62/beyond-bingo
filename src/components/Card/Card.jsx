@@ -12,22 +12,40 @@ const Card = ({ card }) => {
   const { id, isFlipped, isEditing, isRemoving } = card
   const { menu, handleOpenMenu, handleMouseUp } = useContext(CardsContext)
 
-  const [showFrontSide, setShowFrontSide] = useState(true)
+  const [showFront, setShowFront] = useState(true)
+  const [showBack, setShowBack] = useState(false)
 
   const cardRef = useRef(null)
   const inputRef = useRef(null)
 
-  // front side unmount
-  useEffect(() => {
-    setTimeout(() => {
-      if (!isFlipped) return
-      setShowFrontSide(false)
-    }, 300)
-  }, [isFlipped])
-
-  //autofocus after flip animation
+  // управление анимацией флипа
   useEffect(() => {
     if (!isEditing) return
+
+    if (showFront) {
+      setShowBack(true)
+
+      const flipTimer = setTimeout(() => {
+        setShowFront(false)
+      }, 300)
+
+      return () => clearTimeout(flipTimer)
+    } else {
+      setShowBack(true)
+      setShowFront(false)
+    }
+  }, [isEditing, showFront])
+
+  useEffect(() => {
+    if (!isEditing && card.text) {
+      setShowBack(false)
+      setShowFront(false)
+    }
+  }, [isEditing, card.text])
+
+  // autofocus после появления back
+  useEffect(() => {
+    if (!showBack || !isEditing) return
 
     const node = cardRef.current
     if (!node) return
@@ -37,14 +55,13 @@ const Card = ({ card }) => {
         inputRef.current.focus()
         inputRef.current.select()
       }
-
       node.removeEventListener('transitionend', handleEnd)
     }
 
     node.addEventListener('transitionend', handleEnd)
 
     return () => node.removeEventListener('transitionend', handleEnd)
-  }, [isEditing])
+  }, [showBack, isEditing])
 
   return (
     <div
@@ -58,18 +75,21 @@ const Card = ({ card }) => {
       onPointerUp={handleMouseUp}
     >
       <div className={styles.inner}>
-        {showFrontSide && <CardFront card={card} />}
+        {/* FRONT — пустая карточка */}
+        {showFront && <CardFront card={card} />}
 
-        {isEditing ? (
-          <CardBack card={card} inputRef={inputRef} />
-        ) : (
-          <CardReady card={card} />
-        )}
+        {/* BACK — режим редактирования */}
+        {showBack && <CardBack card={card} inputRef={inputRef} />}
+
+        {/* READY — готовая карточка с текстом */}
+        {!isEditing && card.text && <CardReady card={card} />}
       </div>
 
-      <MenuPortal>
-        {menu.openCardId === id && <CardMenu card={card} menu={menu} />}
-      </MenuPortal>
+      {menu.openCardId === id && (
+        <MenuPortal>
+          <CardMenu card={card} menu={menu} />
+        </MenuPortal>
+      )}
     </div>
   )
 }
