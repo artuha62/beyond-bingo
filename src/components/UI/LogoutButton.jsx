@@ -1,4 +1,4 @@
-import { supabase } from '../../supabase.js'
+import { supabase } from '../../services/supabase.js'
 import { useContext } from 'react'
 import { CardsContext } from '../../context/CardsContext.jsx'
 

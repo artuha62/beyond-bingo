@@ -1,6 +1,6 @@
 import { memo, useContext, useEffect, useState } from 'react'
 import CardMenu from '../CardMenu/CardMenu.jsx'
-import MenuPortal from '../../MenuPortal.jsx'
+import MenuPortal from '../CardMenu/MenuPortal.jsx'
 import { useRef } from 'react'
 import CardFront from './Sides/CardFront/CardFront.jsx'
 import CardBack from './Sides/CardBack/CardBack.jsx'
@@ -9,7 +9,7 @@ import { CardsContext } from '../../context/CardsContext.jsx'
 import styles from './Card.module.css'
 
 const Card = ({ card }) => {
-  const { id, isFlipped, isEditing, isRemoving } = card
+  const { id, text, isFlipped, isEditing, isRemoving } = card
   const { menu, handleOpenMenu, handleMouseUp } = useContext(CardsContext)
 
   const [showFront, setShowFront] = useState(true)
@@ -37,11 +37,11 @@ const Card = ({ card }) => {
   }, [isEditing, showFront])
 
   useEffect(() => {
-    if (!isEditing && card.text) {
+    if (!isEditing && text) {
       setShowBack(false)
       setShowFront(false)
     }
-  }, [isEditing, card.text])
+  }, [isEditing, text])
 
   // autofocus после появления back
   useEffect(() => {
@@ -68,7 +68,7 @@ const Card = ({ card }) => {
       ref={cardRef}
       className={[
         styles.card,
-        card.text || isFlipped ? styles.flipped : '',
+        text || isFlipped ? styles.flipped : '',
         isRemoving ? styles.removing : '',
       ].join(' ')}
       onPointerDown={() => handleOpenMenu(id, isEditing, cardRef)}
@@ -82,7 +82,7 @@ const Card = ({ card }) => {
         {showBack && <CardBack card={card} inputRef={inputRef} />}
 
         {/* READY — готовая карточка с текстом */}
-        {!isEditing && card.text && <CardReady card={card} />}
+        {!isEditing && text && <CardReady card={card} />}
       </div>
 
       {menu.openCardId === id && (

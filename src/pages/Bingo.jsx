@@ -17,6 +17,7 @@ const Bingo = () => {
       {isMenuOpen && (
         <div className={styles.overlay} onClick={handleCloseMenu}></div>
       )}
+
       <div className={styles.cardsGrid}>
         {cards.map((card) => (
           <div key={card.id} className={styles.cardEaseIn}>
