@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router'
 import { useAuth } from '../../hooks/useAuth.js'
-import Auth from '../../pages/Auth.jsx'
+import Auth from '../../pages/Auth/Auth.jsx'
 
 const AuthGuard = () => {
   const { user, isLoading } = useAuth()

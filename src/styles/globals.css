@@ -2,6 +2,9 @@
   --accent-color: black;
   --background-color: #f5c507;
   --shadow: rgba(99, 99, 99, 0.3) 0 2px 8px 0;
+
+  --containerWidth: 1366px;
+  --containerHeight: 1024px;
 }
 
 ::selection {
@@ -15,6 +18,15 @@
 }
 
 body {
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
   font-family: 'Jost', sans-serif;
   color: var(--accent-color);
+}
+
+input,
+[contenteditable='true'] {
+  -webkit-user-select: auto;
+  user-select: auto;
 }

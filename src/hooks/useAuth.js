@@ -6,21 +6,23 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const initializeAuth = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
+    // Сначала получаем текущую сессию
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
-
       setIsLoading(false)
-    }
+    })
 
-    initializeAuth()
-
+    // Подписываемся на изменения (срабатывает только при реальных изменениях)
     const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null)
-        setIsLoading(false)
+      (event, session) => {
+        // Обновляем только если событие реально произошло
+        if (
+          event === 'SIGNED_IN' ||
+          event === 'SIGNED_OUT' ||
+          event === 'TOKEN_REFRESHED'
+        ) {
+          setUser(session?.user ?? null)
+        }
       }
     )
 

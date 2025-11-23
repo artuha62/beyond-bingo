@@ -1,19 +1,21 @@
 import { memo, useContext, useEffect, useState } from 'react'
-import CardMenu from '../CardMenu/CardMenu.jsx'
-import MenuPortal from '../CardMenu/MenuPortal.jsx'
 import { useRef } from 'react'
 import CardFront from './Sides/CardFront/CardFront.jsx'
 import CardBack from './Sides/CardBack/CardBack.jsx'
 import CardReady from './Sides/CardReady/CardReady.jsx'
-import { CardsContext } from '../../context/CardsContext.jsx'
+import { ActionsContext } from '../../context/CardsContext.jsx'
 import styles from './Card.module.css'
 
 const Card = ({ card }) => {
+  console.log(`🔄 Рендер карточки: ${card.text}, count = ${card.count}`)
   const { id, text, isFlipped, isEditing, isRemoving } = card
-  const { menu, handleOpenMenu, handleMouseUp } = useContext(CardsContext)
+  const { handleOpenMenu, handleMouseUp } = useContext(ActionsContext)
 
-  const [showFront, setShowFront] = useState(true)
-  const [showBack, setShowBack] = useState(false)
+  const isFrontInitial = !text && !isEditing
+  const isBackInitial = isEditing
+
+  const [showFront, setShowFront] = useState(isFrontInitial)
+  const [showBack, setShowBack] = useState(isBackInitial)
 
   const cardRef = useRef(null)
   const inputRef = useRef(null)
@@ -84,12 +86,6 @@ const Card = ({ card }) => {
         {/* READY — готовая карточка с текстом */}
         {!isEditing && text && <CardReady card={card} />}
       </div>
-
-      {menu.openCardId === id && (
-        <MenuPortal>
-          <CardMenu card={card} menu={menu} />
-        </MenuPortal>
-      )}
     </div>
   )
 }

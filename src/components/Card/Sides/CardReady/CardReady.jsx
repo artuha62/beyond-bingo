@@ -1,10 +1,10 @@
 import { useContext } from 'react'
-import { CardsContext } from '../../../../context/CardsContext.jsx'
+import { ActionsContext } from '../../../../context/CardsContext.jsx'
 import { surface } from '../../Surface/CardSurface.module.css'
 import styles from './CardReady.module.css'
 
 const CardReady = ({ card: { id, text, count } }) => {
-  const { handleIncrementCounter } = useContext(CardsContext)
+  const { handleIncrementCounter } = useContext(ActionsContext)
 
   return (
     <div

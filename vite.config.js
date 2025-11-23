@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'robots.txt'],
       manifest: {
-        name: 'Hellrain Bingo',
+        name: 'Bingo',
         short_name: 'Bingo',
-        description: 'Интерактивное бинго Hellrain',
+        description: 'bingo v0.1',
         theme_color: '#f9f9ed',
         background_color: '#f9f9ed',
         display: 'standalone',

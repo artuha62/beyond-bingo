@@ -1,9 +1,9 @@
 import { supabase } from '../../services/supabase.js'
 import { useContext } from 'react'
-import { CardsContext } from '../../context/CardsContext.jsx'
+import { ActionsContext } from '../../context/CardsContext.jsx'
 
 const LogoutButton = () => {
-  const { handleDeleteAllCards } = useContext(CardsContext)
+  const { handleDeleteAllCards } = useContext(ActionsContext)
   const handleLogout = async () => {
     await supabase.auth.signOut()
   }

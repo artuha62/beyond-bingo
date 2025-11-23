@@ -1,81 +1,62 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useAuth } from './useAuth.js'
 import cardsAPI from '../api/cardsAPI.js'
 
 const MAX_CARDS = 16
 
-const useCards = () => {
-  const { user } = useAuth()
+const useCards = (userId) => {
   const timerRef = useRef(null)
   const syncRef = useRef({})
   const hasLoaded = useRef(false)
 
   // --- STATE ---
   const [cards, setCards] = useState([])
-  const [loading, setLoading] = useState(true)
 
   const [menu, setMenu] = useState({
     openCardId: null,
     position: null,
   })
 
+  // --- INITIAL LOAD ---
   useEffect(() => {
-    if (!user) return
-
-    if (hasLoaded.current) {
-      return
-    }
+    if (!userId) return
+    if (hasLoaded.current) return
     hasLoaded.current = true
 
     const loadCards = async () => {
-      setLoading(true)
-
-      let cardsData = []
+      let nextCards = []
 
       try {
-        cardsData = await cardsAPI.getAll(user.id)
+        const cardsData = await cardsAPI.getAll(userId)
+
+        if (!cardsData || cardsData.length === 0) {
+          const newCard = await cardsAPI.create(userId)
+
+          nextCards = [
+            {
+              ...newCard,
+              isFlipped: false,
+              isEditing: false,
+              isRemoving: false,
+            },
+          ]
+        } else {
+          nextCards = cardsData.map((card) => ({
+            ...card,
+            isFlipped: !!card.text,
+            isEditing: false,
+            isRemoving: false,
+          }))
+        }
       } catch (error) {
         console.log('Load cards error:', error)
         return
       }
 
-      if (!cardsData || cardsData.length === 0) {
-        let newCard
-
-        try {
-          newCard = await cardsAPI.create(user.id)
-        } catch (error) {
-          console.log('Create card error:', error)
-          return
-        }
-
-        setCards([
-          {
-            ...newCard,
-            isFlipped: false,
-            isEditing: false,
-            isRemoving: false,
-          },
-        ])
-
-        setLoading(false)
-        return
-      }
-
-      setCards(
-        cardsData.map((card) => ({
-          ...card,
-          isFlipped: !!card.text,
-          isEditing: false,
-          isRemoving: false,
-        }))
-      )
-
-      setLoading(false)
+      setCards(nextCards)
     }
 
     loadCards()
-  }, [user])
+  }, [userId])
 
   // --- HELPERS ---
   const clearTimer = useCallback(() => {
@@ -100,28 +81,24 @@ const useCards = () => {
   }, [])
 
   const createNewCard = useCallback(async () => {
-    let createdCard
-
     try {
-      createdCard = await cardsAPI.create(user.id)
+      const createdCard = await cardsAPI.create(userId)
+
+      const newCard = {
+        ...createdCard,
+        isFlipped: false,
+        isEditing: false,
+        isRemoving: false,
+      }
+
+      setCards((prev) => [...prev, newCard])
+      return newCard
     } catch (error) {
       console.log('Create card error:', error)
-      return
     }
+  }, [userId])
 
-    const newCard = {
-      ...createdCard,
-      isFlipped: false,
-      isEditing: false,
-      isRemoving: false,
-    }
-
-    setCards((prevCard) => [...prevCard, newCard])
-    return newCard
-  }, [user])
-
-  // --- CARDS LOGIC ---
-
+  // --- CARD LOGIC ---
   const handleFlip = useCallback((cardId) => {
     setCards((prevCards) =>
       prevCards.map((card) =>
@@ -132,89 +109,69 @@ const useCards = () => {
     )
   }, [])
 
-  const handleInputChange = useCallback((cardId, value) => {
-    setCards((prevCards) =>
-      prevCards.map((card) =>
-        card.id === cardId ? { ...card, text: value } : card
+  const handleIncrementCounter = useCallback((cardId) => {
+    setCards((prevCards) => {
+      const updated = prevCards.map((card) =>
+        card.id === cardId ? { ...card, count: card.count + 1 } : card
       )
-    )
+
+      const newCount = updated.find((c) => c.id === cardId).count
+
+      if (syncRef.current[cardId]) {
+        clearTimeout(syncRef.current[cardId])
+      }
+
+      syncRef.current[cardId] = setTimeout(async () => {
+        try {
+          await cardsAPI.update(cardId, { count: newCount })
+        } catch (error) {
+          console.log('Update card error:', error)
+        }
+        delete syncRef.current[cardId]
+      }, 500)
+
+      return updated
+    })
   }, [])
 
-  const handleIncrementCounter = useCallback(
-    (cardId) => {
-      setCards((prevCards) => {
-        const updated = prevCards.map((card) =>
-          card.id === cardId ? { ...card, count: card.count + 1 } : card
+  const handleSaveText = useCallback(
+    async (cardId, newText) => {
+      if (!newText.trim()) return
+
+      const upper = newText.toUpperCase()
+
+      setCards((prev) => {
+        const updated = prev.map((card) =>
+          card.id === cardId ? { ...card, text: upper, isEditing: false } : card
         )
 
-        const newCount = updated.find((c) => c.id === cardId).count
+        const last = updated[updated.length - 1]
 
-        if (syncRef.current[cardId]) {
-          clearTimeout(syncRef.current[cardId])
+        if (updated.length < MAX_CARDS && last?.text) {
+          createNewCard()
         }
-
-        syncRef.current[cardId] = setTimeout(() => {
-          updateCard(cardId, { count: newCount })
-
-          delete syncRef.current[cardId]
-        }, 500)
 
         return updated
       })
+
+      updateCard(cardId, { text: upper })
     },
-    [updateCard]
+    [updateCard, createNewCard]
   )
 
-  const handleSaveCard = useCallback(
-    async (cardId) => {
-      const currentCard = cards.find((card) => card.id === cardId)
-      if (!currentCard?.text.trim()) return
-
-      const upperText = currentCard.text.toUpperCase()
-
-      setCards((prevCards) =>
-        prevCards.map((card) =>
-          card.id === cardId
-            ? { ...card, text: upperText, isEditing: false }
-            : card
-        )
-      )
-
-      await updateCard(cardId, { text: upperText })
-
-      const lastCard = cards[cards.length - 1]
-      const needNewCard = cards.length < MAX_CARDS && lastCard?.text
-
-      if (needNewCard) {
-        createNewCard()
-      }
-    },
-    [cards, updateCard, createNewCard]
-  )
-
-  const handleSubmit = useCallback(
-    async (cardId, event) => {
-      event.preventDefault()
-      event.stopPropagation()
-      await handleSaveCard(cardId)
-    },
-    [handleSaveCard]
-  )
-
-  const handleDeleteAllCards = async () => {
+  const handleDeleteAllCards = useCallback(async () => {
     const confirmDeleteAll = confirm('Удалить все карточки?')
     if (!confirmDeleteAll) return
 
     setCards([])
 
     try {
-      await cardsAPI.deleteAll(user.id)
-
+      await cardsAPI.deleteAll(userId)
       await createNewCard()
     } catch (error) {
       console.log('Delete all cards error:', error)
     }
-  }
+  }, [userId, createNewCard])
 
   // --- MENU LOGIC ---
   const handleOpenMenu = useCallback(
@@ -225,10 +182,10 @@ const useCards = () => {
 
       timerRef.current = setTimeout(() => {
         const rect = ref.current?.getBoundingClientRect()
+        if (!rect) return
+
         const menuWidth = 289
         const menuHeight = 79
-
-        if (!rect) return
 
         setMenu({
           openCardId: cardId,
@@ -244,10 +201,7 @@ const useCards = () => {
 
   const handleCloseMenu = useCallback(() => {
     clearTimer()
-    setMenu({
-      openCardId: null,
-      position: null,
-    })
+    setMenu({ openCardId: null, position: null })
   }, [clearTimer])
 
   const handleDeleteCard = useCallback(
@@ -310,9 +264,11 @@ const useCards = () => {
         )
       )
 
-      updateCard(cardId, { count: 0 })
+      cardsAPI.update(cardId, { count: 0 }).catch((error) => {
+        console.log('Update card error:', error)
+      })
     },
-    [handleCloseMenu, updateCard]
+    [handleCloseMenu]
   )
 
   const handleMouseUp = useCallback(() => {
@@ -321,11 +277,9 @@ const useCards = () => {
 
   return {
     cards,
-    loading,
     menu,
     handleFlip,
-    handleInputChange,
-    handleSubmit,
+    handleSaveText,
     handleDeleteAllCards,
     handleIncrementCounter,
     handleOpenMenu,

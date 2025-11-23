@@ -1,20 +1,25 @@
 import { useContext } from 'react'
-import { CardsContext } from '../../context/CardsContext.jsx'
+import { ActionsContext, MenuDataContext } from '../../context/CardsContext.jsx'
 import styles from './CardMenu.module.css'
 import { FaPencil } from 'react-icons/fa6'
 import { MdDeleteOutline } from 'react-icons/md'
 import { TiDelete } from 'react-icons/ti'
 import { RiResetLeftFill } from 'react-icons/ri'
 
-const CardMenu = ({ card: { id }, menu: { position } }) => {
+const CardMenu = () => {
+  console.log('Menu render')
+
+  const { menu } = useContext(MenuDataContext)
   const {
     handleRenameCard,
     handleDeleteCard,
     handleResetCounter,
     handleCloseMenu,
-  } = useContext(CardsContext)
+  } = useContext(ActionsContext)
 
-  if (!position) return null
+  const { openCardId: id, position } = menu
+
+  if (!position || !id) return null
 
   return (
     <div
@@ -27,9 +32,11 @@ const CardMenu = ({ card: { id }, menu: { position } }) => {
       <button className={styles.icon} onClick={() => handleRenameCard(id)}>
         <FaPencil size={30} />
       </button>
+
       <button className={styles.icon} onClick={() => handleResetCounter(id)}>
         <RiResetLeftFill size={35} />
       </button>
+
       <button className={styles.icon} onClick={() => handleDeleteCard(id)}>
         <MdDeleteOutline size={35} />
       </button>

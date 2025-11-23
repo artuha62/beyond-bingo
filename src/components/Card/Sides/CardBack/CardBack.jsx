@@ -1,10 +1,12 @@
-import { useContext, useEffect } from 'react'
-import { CardsContext } from '../../../../context/CardsContext.jsx'
+import { useContext, useEffect, useState } from 'react'
+import { ActionsContext } from '../../../../context/CardsContext.jsx'
 import { surface } from '../../Surface/CardSurface.module.css'
 import styles from './CardBack.module.css'
 
 const CardBack = ({ card: { id, text }, inputRef }) => {
-  const { handleSubmit, handleInputChange } = useContext(CardsContext)
+  const { handleSaveText } = useContext(ActionsContext)
+
+  const [localText, setLocalText] = useState(text)
 
   useEffect(() => {
     if (inputRef.current) {
@@ -14,20 +16,22 @@ const CardBack = ({ card: { id, text }, inputRef }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const submit = (event) => {
+    event.preventDefault()
+    event.stopPropagation()
+    handleSaveText(id, localText)
+  }
+
   return (
     <div className={`${surface} ${styles.backSide}`}>
-      <form
-        className={styles.form}
-        onBlur={(event) => handleSubmit(id, event)}
-        onSubmit={(event) => handleSubmit(id, event)}
-      >
+      <form className={styles.form} onBlur={submit} onSubmit={submit}>
         <input
           ref={inputRef}
           className={styles.input}
           type="text"
           placeholder="Напиши что-нибудь..."
-          value={text}
-          onChange={(event) => handleInputChange(id, event.target.value)}
+          value={String(localText)}
+          onChange={(event) => setLocalText(event.target.value)}
         />
       </form>
     </div>
