@@ -1,5 +1,6 @@
 import { createContext, useMemo } from 'react'
 import useCards from '../hooks/useCards.js'
+import { useAuth } from '../hooks/useAuth.js'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const CardsDataContext = createContext(null)
@@ -8,8 +9,9 @@ export const ActionsContext = createContext(null)
 // eslint-disable-next-line react-refresh/only-export-components
 export const MenuDataContext = createContext(null)
 
-export const CardsProvider = ({ userId, children }) => {
-  console.log('CardsProvider RENDER')
+export const CardsProvider = ({ children }) => {
+  const { user } = useAuth()
+
   const {
     cards,
     menu,
@@ -23,18 +25,13 @@ export const CardsProvider = ({ userId, children }) => {
     handleRenameCard,
     handleResetCounter,
     handleMouseUp,
-  } = useCards(userId)
+  } = useCards(user?.id)
 
   const cardsValue = useMemo(() => {
-    console.log('-> cardsValue пересоздан, карточек:', cards.length)
     return { cards }
   }, [cards])
 
   const menuValue = useMemo(() => {
-    console.log(
-      '-> menuValue пересоздан, ID открытой карточки:',
-      menu.openCardId
-    )
     return { menu }
   }, [menu])
 
@@ -65,7 +62,9 @@ export const CardsProvider = ({ userId, children }) => {
     handleCloseMenu,
     handleMouseUp,
   ])
-
+  console.log('🔁 CardsProvider re-render')
+  console.log('📊 actionsValue changed?', actionsValue) // ← Добавь эту строку
+  console.log('📊 cardsValue changed?', cardsValue) // ← И эту
   return (
     <CardsDataContext.Provider value={cardsValue}>
       <ActionsContext.Provider value={actionsValue}>

@@ -6,16 +6,15 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Сначала получаем текущую сессию
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      await new Promise((resolve) => setTimeout(resolve, 3000))
+
       setUser(session?.user ?? null)
       setIsLoading(false)
     })
 
-    // Подписываемся на изменения (срабатывает только при реальных изменениях)
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        // Обновляем только если событие реально произошло
         if (
           event === 'SIGNED_IN' ||
           event === 'SIGNED_OUT' ||

@@ -1,53 +1,24 @@
-import { memo, useContext, useEffect, useState } from 'react'
+import { memo, useEffect } from 'react'
 import { useRef } from 'react'
 import CardFront from './Sides/CardFront/CardFront.jsx'
 import CardBack from './Sides/CardBack/CardBack.jsx'
 import CardReady from './Sides/CardReady/CardReady.jsx'
-import { ActionsContext } from '../../context/CardsContext.jsx'
 import styles from './Card.module.css'
 
 const Card = ({ card }) => {
-  console.log(`🔄 Рендер карточки: ${card.text}, count = ${card.count}`)
-  const { id, text, isFlipped, isEditing, isRemoving } = card
-  const { handleOpenMenu, handleMouseUp } = useContext(ActionsContext)
+  console.log('🔄 Card render:', card.text, 'count x', card.count)
 
-  const isFrontInitial = !text && !isEditing
-  const isBackInitial = isEditing
-
-  const [showFront, setShowFront] = useState(isFrontInitial)
-  const [showBack, setShowBack] = useState(isBackInitial)
-
+  const { text, isFlipped, isEditing, isRemoving } = card
   const cardRef = useRef(null)
   const inputRef = useRef(null)
 
-  // управление анимацией флипа
+  const showFront = !text && !isEditing
+  const showBack = isEditing
+  const showReady = !isEditing && text
+
+  // Autofocus после появления back
   useEffect(() => {
-    if (!isEditing) return
-
-    if (showFront) {
-      setShowBack(true)
-
-      const flipTimer = setTimeout(() => {
-        setShowFront(false)
-      }, 300)
-
-      return () => clearTimeout(flipTimer)
-    } else {
-      setShowBack(true)
-      setShowFront(false)
-    }
-  }, [isEditing, showFront])
-
-  useEffect(() => {
-    if (!isEditing && text) {
-      setShowBack(false)
-      setShowFront(false)
-    }
-  }, [isEditing, text])
-
-  // autofocus после появления back
-  useEffect(() => {
-    if (!showBack || !isEditing) return
+    if (!showBack) return
 
     const node = cardRef.current
     if (!node) return
@@ -61,9 +32,8 @@ const Card = ({ card }) => {
     }
 
     node.addEventListener('transitionend', handleEnd)
-
     return () => node.removeEventListener('transitionend', handleEnd)
-  }, [showBack, isEditing])
+  }, [showBack])
 
   return (
     <div
@@ -73,18 +43,11 @@ const Card = ({ card }) => {
         text || isFlipped ? styles.flipped : '',
         isRemoving ? styles.removing : '',
       ].join(' ')}
-      onPointerDown={() => handleOpenMenu(id, isEditing, cardRef)}
-      onPointerUp={handleMouseUp}
     >
       <div className={styles.inner}>
-        {/* FRONT — пустая карточка */}
         {showFront && <CardFront card={card} />}
-
-        {/* BACK — режим редактирования */}
         {showBack && <CardBack card={card} inputRef={inputRef} />}
-
-        {/* READY — готовая карточка с текстом */}
-        {!isEditing && text && <CardReady card={card} />}
+        {showReady && <CardReady card={card} cardRef={cardRef} />}
       </div>
     </div>
   )

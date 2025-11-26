@@ -21,7 +21,7 @@
 }
 
 .removing {
-  animation: cardOut 0.3s ease forwards;
+  animation: cardOut 0.2s ease forwards;
 }
 
 @keyframes cardOut {

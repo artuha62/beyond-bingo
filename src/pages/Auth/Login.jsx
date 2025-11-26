@@ -3,8 +3,8 @@ import { supabase } from '../../services/supabase.js'
 import styles from './AuthForm.module.css'
 
 const Login = ({ onSwitch }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('test62@gmail.com')
+  const [password, setPassword] = useState('123456')
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -16,8 +16,6 @@ const Login = ({ onSwitch }) => {
 
     if (error) {
       alert(error.message)
-    } else {
-      alert('Вы успешно вошли!')
     }
   }
 

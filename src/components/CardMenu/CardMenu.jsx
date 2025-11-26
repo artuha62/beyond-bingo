@@ -7,8 +7,6 @@ import { TiDelete } from 'react-icons/ti'
 import { RiResetLeftFill } from 'react-icons/ri'
 
 const CardMenu = () => {
-  console.log('Menu render')
-
   const { menu } = useContext(MenuDataContext)
   const {
     handleRenameCard,
@@ -29,15 +27,33 @@ const CardMenu = () => {
         top: position.y,
       }}
     >
-      <button className={styles.icon} onClick={() => handleRenameCard(id)}>
+      <button
+        className={styles.icon}
+        onClick={() => {
+          handleCloseMenu()
+          handleRenameCard(id)
+        }}
+      >
         <FaPencil size={30} />
       </button>
 
-      <button className={styles.icon} onClick={() => handleResetCounter(id)}>
+      <button
+        className={styles.icon}
+        onClick={() => {
+          handleCloseMenu()
+          handleResetCounter(id)
+        }}
+      >
         <RiResetLeftFill size={35} />
       </button>
 
-      <button className={styles.icon} onClick={() => handleDeleteCard(id)}>
+      <button
+        className={styles.icon}
+        onClick={() => {
+          handleCloseMenu()
+          handleDeleteCard(id)
+        }}
+      >
         <MdDeleteOutline size={35} />
       </button>
 
