@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { ActionsContext, MenuDataContext } from '../../context/CardsContext.jsx'
-import styles from './CardMenu.module.css'
 import { FaPencil } from 'react-icons/fa6'
 import { MdDeleteOutline } from 'react-icons/md'
 import { TiDelete } from 'react-icons/ti'
 import { RiResetLeftFill } from 'react-icons/ri'
+import styles from './CardMenu.module.css'
 
 const CardMenu = () => {
   const { menu } = useContext(MenuDataContext)

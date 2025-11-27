@@ -6,8 +6,6 @@ import CardReady from './Sides/CardReady/CardReady.jsx'
 import styles from './Card.module.css'
 
 const Card = ({ card }) => {
-  console.log('🔄 Card render:', card.text, 'count x', card.count)
-
   const { text, isFlipped, isEditing, isRemoving } = card
   const cardRef = useRef(null)
   const inputRef = useRef(null)

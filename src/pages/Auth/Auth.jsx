@@ -5,27 +5,18 @@ import styles from './Auth.module.css'
 
 const Auth = () => {
   const [mode, setMode] = useState('login')
-  const [isTransitioning, setIsTransitioning] = useState(false)
 
   return (
-    <div
-      className={`${styles.wrapper} ${isTransitioning ? styles.fadeOut : ''}`}
-    >
+    <div className={styles.wrapper}>
       <div className={styles.card}>
         <div className={styles.left}>
           <div className={styles.formsWrapper} data-mode={mode}>
             <div className={styles.formSlide}>
-              <Login
-                onSwitch={() => setMode('register')}
-                onLoginSuccess={() => setIsTransitioning(true)}
-              />
+              <Login onSwitch={() => setMode('register')} />
             </div>
 
             <div className={styles.formSlide}>
-              <Registration
-                onSwitch={() => setMode('login')}
-                onRegisterSuccess={() => setIsTransitioning(true)}
-              />
+              <Registration onSwitch={() => setMode('login')} />
             </div>
           </div>
         </div>

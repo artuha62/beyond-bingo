@@ -4,9 +4,9 @@ import {
   CardsDataContext,
   MenuDataContext,
 } from '../../context/CardsContext.jsx'
-import styles from './CardsGrid.module.css'
 import MenuPortal from '../CardMenu/MenuPortal.jsx'
 import CardMenu from '../CardMenu/CardMenu.jsx'
+import styles from './CardsGrid.module.css'
 
 const CardsGrid = () => {
   const { cards } = useContext(CardsDataContext)

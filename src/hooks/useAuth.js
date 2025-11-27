@@ -7,7 +7,7 @@ export function useAuth() {
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
-      await new Promise((resolve) => setTimeout(resolve, 3000))
+      await new Promise((resolve) => setTimeout(resolve, 0))
 
       setUser(session?.user ?? null)
       setIsLoading(false)

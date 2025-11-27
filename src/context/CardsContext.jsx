@@ -62,9 +62,7 @@ export const CardsProvider = ({ children }) => {
     handleCloseMenu,
     handleMouseUp,
   ])
-  console.log('🔁 CardsProvider re-render')
-  console.log('📊 actionsValue changed?', actionsValue) // ← Добавь эту строку
-  console.log('📊 cardsValue changed?', cardsValue) // ← И эту
+
   return (
     <CardsDataContext.Provider value={cardsValue}>
       <ActionsContext.Provider value={actionsValue}>
