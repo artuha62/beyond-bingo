@@ -1,18 +1,15 @@
-import Title from '../../components/Title/Title.jsx'
-import LogoutButton from '../../components/UI/LogoutButton.jsx'
 import Overlay from '../../components/Overlay/Overlay.jsx'
 import CardsGrid from '../../components/CardsGrid/CardsGrid.jsx'
 import { CardsProvider } from '../../context/CardsContext.jsx'
-import styles from './Bingo.module.css'
+import styles from './Bingo.module.scss'
+import Header from '../../components/Header/Header.jsx'
 
 const Bingo = () => {
   return (
     <div className={styles.container}>
-      <Title />
       <CardsProvider>
-        <LogoutButton />
+        <Header />
         <CardsGrid />
-
         <Overlay />
       </CardsProvider>
     </div>

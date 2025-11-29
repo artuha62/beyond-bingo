@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { ActionsContext } from '../../../../context/CardsContext.jsx'
-import { surface } from '../../Surface/CardSurface.module.css'
+import { surface } from '../../Surface/CardSurface.module.scss'
 import styles from './CardBack.module.css'
 
 const CardBack = ({ card: { id, text }, inputRef }) => {

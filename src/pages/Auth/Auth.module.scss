@@ -1,11 +1,6 @@
 .wrapper {
-  width: var(--containerWidth);
-  height: var(--containerHeight);
-  background: var(--background-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px;
+  @include flex-center;
+  background-color: var(--background-color);
 }
 
 .card {

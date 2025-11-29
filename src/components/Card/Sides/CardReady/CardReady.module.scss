@@ -13,12 +13,11 @@
 }
 
 .text {
-  font-size: 20px;
+  @include fluid-text(20, 16);
   font-weight: 600;
   text-align: center;
 
   line-height: 1.2;
-  padding: 0 4px;
 
   color: var(--accent-color);
 
@@ -28,16 +27,9 @@
 }
 
 .counter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include fluid-text(20, 16);
 
-  font-size: 20px;
-  letter-spacing: 2px;
-}
+  @include flex-center;
 
-.counter-body {
-  display: flex;
-  justify-content: center;
-  column-gap: 5px;
+  letter-spacing: rem(2);
 }

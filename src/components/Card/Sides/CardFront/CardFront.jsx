@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { ActionsContext } from '../../../../context/CardsContext.jsx'
-import { surface } from '../../Surface/CardSurface.module.css'
+import { surface } from '../../Surface/CardSurface.module.scss'
 import styles from './CardFront.module.css'
 
 const CardFront = ({ card: { id } }) => {

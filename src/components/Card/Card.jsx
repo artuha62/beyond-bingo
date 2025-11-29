@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import CardFront from './Sides/CardFront/CardFront.jsx'
 import CardBack from './Sides/CardBack/CardBack.jsx'
 import CardReady from './Sides/CardReady/CardReady.jsx'
-import styles from './Card.module.css'
+import styles from './Card.module.scss'
 
 const Card = ({ card }) => {
   const { text, isFlipped, isEditing, isRemoving } = card
@@ -36,11 +36,7 @@ const Card = ({ card }) => {
   return (
     <div
       ref={cardRef}
-      className={[
-        styles.card,
-        text || isFlipped ? styles.flipped : '',
-        isRemoving ? styles.removing : '',
-      ].join(' ')}
+      className={`${styles.card} ${text || isFlipped ? styles.flipped : ''} ${isRemoving ? styles.removing : ''}`}
     >
       <div className={styles.inner}>
         {showFront && <CardFront card={card} />}

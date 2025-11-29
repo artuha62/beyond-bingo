@@ -1,6 +1,6 @@
 import { ActionsContext, MenuDataContext } from '../../context/CardsContext.jsx'
 import { useContext } from 'react'
-import styles from './Overlay.module.css'
+import styles from './Overlay.module.scss'
 
 const Overlay = () => {
   const { menu } = useContext(MenuDataContext)

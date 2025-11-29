@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Login from './Login.jsx'
 import Registration from './Registration.jsx'
-import styles from './Auth.module.css'
+import styles from './Auth.module.scss'
 
 const Auth = () => {
   const [mode, setMode] = useState('login')

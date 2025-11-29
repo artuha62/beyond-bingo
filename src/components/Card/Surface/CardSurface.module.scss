@@ -1,17 +1,20 @@
 .surface {
   position: absolute;
   inset: 0;
-  padding: 20px;
+  padding: rem(20);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 
   background: #fff;
-  border-radius: 16px;
+  border-radius: rem(16);
   border: 6px solid rgba(0, 0, 0, 0.05);
   box-shadow: var(--shadow);
 
   backface-visibility: hidden;
   cursor: pointer;
+
+  @include mobile {
+    padding: rem(10);
+    border: rem(3) solid rgba(0, 0, 0, 0.05);
+  }
 }

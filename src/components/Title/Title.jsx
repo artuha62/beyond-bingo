@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import styles from './Title.module.css'
+import styles from './Title.module.scss'
 
 const Title = () => {
   const [title, setTitle] = useState('Bingo')
@@ -44,8 +44,9 @@ const Title = () => {
     >
       <input
         ref={inputRef}
+        id="bingoTitle"
         className={[
-          styles.input,
+          styles.titleInput,
           isEditing ? styles.editing : styles.readonly,
         ].join(' ')}
         value={title}

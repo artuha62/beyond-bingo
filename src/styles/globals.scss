@@ -1,15 +1,6 @@
-:root {
-  --accent-color: black;
-  --background-color: #f5c507;
-  --shadow: rgba(99, 99, 99, 0.3) 0 2px 8px 0;
-
-  --containerWidth: 1366px;
-  --containerHeight: 1024px;
-}
-
 ::selection {
   background: var(--accent-color);
-  color: var(--background-color);
+  color: var(--color-1);
 }
 
 ::-moz-selection {
@@ -17,16 +8,33 @@
   color: var(--background-color);
 }
 
+#root {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
 body {
+  display: grid;
+  align-items: center;
+
   -webkit-user-select: none;
   user-select: none;
   touch-action: manipulation;
   font-family: 'Jost', sans-serif;
+
+  background: var(--background-color);
+
   color: var(--accent-color);
 }
 
-input,
-[contenteditable='true'] {
+input {
   -webkit-user-select: auto;
   user-select: auto;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  color: var(--accent-color);
 }

@@ -1,7 +1,7 @@
 import { useContext, useRef } from 'react'
 import { ActionsContext } from '../../../../context/CardsContext.jsx'
-import { surface } from '../../Surface/CardSurface.module.css'
-import styles from './CardReady.module.css'
+import { surface } from '../../Surface/CardSurface.module.scss'
+import styles from './CardReady.module.scss'
 
 const CardReady = ({ card: { id, text, count }, cardRef }) => {
   const { handleIncrementCounter, handleMouseUp, handleOpenMenu } =

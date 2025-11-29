@@ -3,11 +3,10 @@
   z-index: 2;
   display: flex;
   justify-content: space-between;
-  column-gap: 15px;
+  column-gap: rem(15);
   background: var(--background-color);
-  padding: 10px;
-  border-radius: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.02);
+  padding: rem(10);
+  border-radius: rem(12);
   box-shadow: var(--shadow);
   animation: scaleIn 0.3s ease forwards;
 }
@@ -23,19 +22,15 @@
   }
 }
 
-button {
+.icon {
+  @include flex-center;
+
+  width: rem(55);
+  aspect-ratio: 1;
   border: none;
   background: #fff;
-  padding: 6px;
-  border-radius: 8px;
+  padding: rem(6);
+  border-radius: rem(8);
   cursor: pointer;
   box-shadow: var(--shadow);
-}
-
-.icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 55px;
-  aspect-ratio: 1;
 }
