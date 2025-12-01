@@ -29,10 +29,15 @@ const CardReady = ({ card: { id, text, count }, cardRef }) => {
   const onPointerMove = (event) => {
     if (moved.current) return
 
-    const distanceX = Math.abs(event.clientX - startPos.current.x)
-    const distanceY = Math.abs(event.clientY - startPos.current.y)
+    const deltaX = Math.abs(event.clientX - startPos.current.x)
+    const deltaY = Math.abs(event.clientY - startPos.current.y)
 
-    if (distanceX > MOVE_THRESHOLD || distanceY > MOVE_THRESHOLD) {
+    const timeSincePress = Date.now() - startTime.current
+
+    const isEarlyMovement = timeSincePress < 120 && (deltaX > 1 || deltaY > 1)
+    const isScrollGesture = deltaX > MOVE_THRESHOLD || deltaY > MOVE_THRESHOLD
+
+    if (isEarlyMovement || isScrollGesture) {
       moved.current = true
       clearTimeout(longPressTimer.current)
     }
