@@ -4,16 +4,11 @@ import cardsAPI from '../api/cardsAPI.js'
 const MAX_CARDS = 16
 
 const useCards = (userId) => {
-  const timerRef = useRef(null)
   const syncRef = useRef({})
   const hasLoaded = useRef(false)
 
   // --- STATE ---
   const [cards, setCards] = useState([])
-  const [menu, setMenu] = useState({
-    openCardId: null,
-    position: null,
-  })
 
   // --- INITIAL LOAD ---
   useEffect(() => {
@@ -61,48 +56,6 @@ const useCards = (userId) => {
 
     loadCards()
   }, [userId])
-
-  // --- HELPERS ---
-  const clearTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current)
-      timerRef.current = null
-    }
-  }, [])
-
-  // --- MENU LOGIC ---
-  const handleOpenMenu = useCallback(
-    (cardId, ref) => {
-      clearTimer()
-
-      timerRef.current = setTimeout(() => {
-        const rect = ref.current?.getBoundingClientRect()
-
-        if (!rect) return
-
-        const menuWidth = 289
-        const menuHeight = 79
-
-        setMenu({
-          openCardId: cardId,
-          position: {
-            x: rect.left + (rect.width - menuWidth) / 2,
-            y: rect.top + (rect.height - menuHeight) / 2,
-          },
-        })
-      }, 500)
-    },
-    [clearTimer]
-  )
-
-  const handleCloseMenu = useCallback(() => {
-    clearTimer()
-    setMenu({ openCardId: null, position: null })
-  }, [clearTimer])
-
-  const handleMouseUp = useCallback(() => {
-    clearTimer()
-  }, [clearTimer])
 
   // --- CARD LOGIC ---
   const createNewCard = useCallback(async () => {
@@ -297,17 +250,13 @@ const useCards = (userId) => {
 
   return {
     cards,
-    menu,
     handleFlip,
     handleSaveText,
     handleDeleteAllCards,
     handleIncrementCounter,
-    handleOpenMenu,
-    handleCloseMenu,
     handleDeleteCard,
     handleRenameCard,
     handleResetCounter,
-    handleMouseUp,
   }
 }
 

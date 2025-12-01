@@ -14,7 +14,7 @@ const Card = ({ card }) => {
   const showBack = isEditing
   const showReady = !isEditing && text
 
-  // Autofocus после появления back
+  // Autofocus after flip animation
   useEffect(() => {
     if (!showBack) return
 

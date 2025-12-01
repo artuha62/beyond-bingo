@@ -3,24 +3,49 @@ import { ActionsContext } from '../../../../context/CardsContext.jsx'
 import { surface } from '../../Surface/CardSurface.module.scss'
 import styles from './CardReady.module.scss'
 
+const LONG_PRESS_DELAY = 450
+const MOVE_THRESHOLD = 16
+
 const CardReady = ({ card: { id, text, count }, cardRef }) => {
-  const { handleIncrementCounter, handleMouseUp, handleOpenMenu } =
-    useContext(ActionsContext)
+  const { handleIncrementCounter, handleOpenMenu } = useContext(ActionsContext)
 
-  const pressStartTime = useRef(0)
+  const startTime = useRef(0)
+  const startPos = useRef({ x: 0, y: 0 })
+  const moved = useRef(false)
+  const longPressTimer = useRef(null)
 
-  const handlePointerDown = () => {
-    pressStartTime.current = Date.now()
+  const onPointerDown = (event) => {
+    moved.current = false
+    startTime.current = Date.now()
+    startPos.current = { x: event.clientX, y: event.clientY }
 
-    handleOpenMenu(id, cardRef)
+    longPressTimer.current = setTimeout(() => {
+      if (!moved.current) {
+        handleOpenMenu(id, cardRef)
+      }
+    }, LONG_PRESS_DELAY)
   }
 
-  const handlePointerUp = () => {
-    handleMouseUp()
+  const onPointerMove = (event) => {
+    if (moved.current) return
 
-    const pressDuration = Date.now() - pressStartTime.current
+    const distanceX = Math.abs(event.clientX - startPos.current.x)
+    const distanceY = Math.abs(event.clientY - startPos.current.y)
 
-    if (pressDuration < 500) {
+    if (distanceX > MOVE_THRESHOLD || distanceY > MOVE_THRESHOLD) {
+      moved.current = true
+      clearTimeout(longPressTimer.current)
+    }
+  }
+
+  const onPointerUp = () => {
+    clearTimeout(longPressTimer.current)
+
+    if (moved.current) return
+
+    const pressDuration = Date.now() - startTime.current
+
+    if (pressDuration < LONG_PRESS_DELAY) {
       handleIncrementCounter(id)
     }
   }
@@ -28,9 +53,10 @@ const CardReady = ({ card: { id, text, count }, cardRef }) => {
   return (
     <div
       className={`${surface} ${styles.readySide}`}
-      onPointerDown={handlePointerDown}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={handleMouseUp}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      role="button"
     >
       <span className={styles.text}>{text}</span>
       <div className={styles.counter}>

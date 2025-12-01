@@ -5,12 +5,12 @@
   padding-bottom: rem(30);
 
   @include mobile {
-    padding-bottom: rem(15);
+    padding-bottom: rem(10);
   }
 }
 
 .titleInput {
-  @include fluid-text(80, 30);
+  font-size: rem(80);
   text-transform: uppercase;
   font-weight: 800;
   text-align: center;
@@ -18,8 +18,15 @@
   border: none;
   outline: none;
   background: transparent;
-
   color: var(--accent-color);
+
+  @include laptop {
+    font-size: rem(70);
+  }
+
+  @include mobile {
+    font-size: rem(40);
+  }
 }
 
 .readonly {

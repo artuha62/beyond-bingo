@@ -1,6 +1,6 @@
 .menu {
   position: fixed;
-  z-index: 2;
+  z-index: 2000;
   display: flex;
   justify-content: space-between;
   column-gap: rem(15);
@@ -8,29 +8,67 @@
   padding: rem(10);
   border-radius: rem(12);
   box-shadow: var(--shadow);
-  animation: scaleIn 0.3s ease forwards;
-}
 
-@keyframes scaleIn {
-  from {
-    transform: scale(0);
-    opacity: 0;
+  @include hide;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    transform 0.3s ease,
+    left 0s,
+    top 0s;
+
+  &.open {
+    @include show;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
   }
-  to {
-    transform: scale(1);
-    opacity: 1;
+
+  @include mobile {
+    column-gap: rem(5);
+    padding: rem(10);
+    border-radius: rem(10);
   }
 }
 
 .icon {
   @include flex-center;
+  @include square(rem(55));
 
-  width: rem(55);
-  aspect-ratio: 1;
   border: none;
   background: #fff;
   padding: rem(6);
   border-radius: rem(8);
   cursor: pointer;
   box-shadow: var(--shadow);
+
+  @include mobile {
+    @include square(rem(35));
+
+    border-radius: rem(6);
+  }
+}
+
+.icon svg {
+  @include square(rem(35));
+
+  @include mobile {
+    @include square(rem(20));
+  }
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1500;
+
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
 }

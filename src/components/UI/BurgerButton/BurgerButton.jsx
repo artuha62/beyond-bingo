@@ -8,7 +8,7 @@ const BurgerButton = ({ onClick, disabled }) => {
       onClick={onClick}
       disabled={disabled}
     >
-      <IoEllipsisHorizontalCircle size={40} />
+      <IoEllipsisHorizontalCircle />
     </button>
   )
 }

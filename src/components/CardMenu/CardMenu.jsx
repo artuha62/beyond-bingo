@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useLayoutEffect, useState } from 'react'
 import { ActionsContext, MenuDataContext } from '../../context/CardsContext.jsx'
 import { FaPencil } from 'react-icons/fa6'
 import { MdDeleteOutline } from 'react-icons/md'
@@ -15,52 +15,78 @@ const CardMenu = () => {
     handleCloseMenu,
   } = useContext(ActionsContext)
 
-  const { openCardId: id, position } = menu
+  const { openCardId, cardPosition } = menu
+  const isOpen = !!openCardId
 
-  if (!position || !id) return null
+  // Centering the menu on the card
+  const [coords, setCoords] = useState(null)
+
+  useLayoutEffect(() => {
+    if (!cardPosition) return
+
+    const centerCardX = cardPosition.left + cardPosition.width / 2
+    const centerCardY = cardPosition.top + cardPosition.height / 2
+
+    setCoords({ x: centerCardX, y: centerCardY })
+  }, [cardPosition])
 
   return (
-    <div
-      className={styles.menu}
-      style={{
-        left: position.x,
-        top: position.y,
-      }}
-    >
-      <button
-        className={styles.icon}
-        onClick={() => {
-          handleCloseMenu()
-          handleRenameCard(id)
+    <>
+      {/* Overlay */}
+      <div
+        className={`${styles.backdrop} ${isOpen ? styles.open : ''}`}
+        onClick={handleCloseMenu}
+      />
+
+      <div
+        className={`${styles.menu} ${isOpen ? styles.open : ''}`}
+        style={{
+          left: coords?.x,
+          top: coords?.y,
         }}
       >
-        <FaPencil size={30} />
-      </button>
+        <button
+          className={styles.icon}
+          onClick={() => {
+            handleCloseMenu()
+            handleRenameCard(openCardId)
+          }}
+          disabled={!isOpen}
+        >
+          <FaPencil />
+        </button>
 
-      <button
-        className={styles.icon}
-        onClick={() => {
-          handleCloseMenu()
-          handleResetCounter(id)
-        }}
-      >
-        <RiResetLeftFill size={35} />
-      </button>
+        <button
+          className={styles.icon}
+          onClick={() => {
+            handleCloseMenu()
+            handleResetCounter(openCardId)
+          }}
+          disabled={!isOpen}
+        >
+          <RiResetLeftFill />
+        </button>
 
-      <button
-        className={styles.icon}
-        onClick={() => {
-          handleCloseMenu()
-          handleDeleteCard(id)
-        }}
-      >
-        <MdDeleteOutline size={35} />
-      </button>
+        <button
+          className={styles.icon}
+          onClick={() => {
+            handleCloseMenu()
+            handleDeleteCard(openCardId)
+          }}
+          disabled={!isOpen}
+        >
+          <MdDeleteOutline />
+        </button>
 
-      <button className={styles.icon} onClick={handleCloseMenu}>
-        <TiDelete size={40} />
-      </button>
-    </div>
+        <button
+          className={styles.icon}
+          onClick={handleCloseMenu}
+          disabled={!isOpen}
+        >
+          <TiDelete />
+        </button>
+      </div>
+    </>
   )
 }
 

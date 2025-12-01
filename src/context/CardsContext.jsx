@@ -1,6 +1,7 @@
 import { createContext, useMemo } from 'react'
 import useCards from '../hooks/useCards.js'
 import { useAuth } from '../hooks/useAuth.js'
+import useCardMenu from '../hooks/useCardMenu.js'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const CardsDataContext = createContext(null)
@@ -14,18 +15,16 @@ export const CardsProvider = ({ children }) => {
 
   const {
     cards,
-    menu,
     handleFlip,
     handleSaveText,
     handleDeleteAllCards,
     handleIncrementCounter,
-    handleOpenMenu,
-    handleCloseMenu,
     handleDeleteCard,
     handleRenameCard,
     handleResetCounter,
-    handleMouseUp,
   } = useCards(user?.id)
+
+  const { menu, handleOpenMenu, handleCloseMenu } = useCardMenu()
 
   const cardsValue = useMemo(() => {
     return { cards }
@@ -47,7 +46,6 @@ export const CardsProvider = ({ children }) => {
 
       handleOpenMenu,
       handleCloseMenu,
-      handleMouseUp,
     }
   }, [
     handleFlip,
@@ -60,7 +58,6 @@ export const CardsProvider = ({ children }) => {
 
     handleOpenMenu,
     handleCloseMenu,
-    handleMouseUp,
   ])
 
   return (

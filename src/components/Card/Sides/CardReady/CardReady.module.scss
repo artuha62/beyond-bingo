@@ -1,14 +1,17 @@
 .readySide {
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   transform: rotateY(180deg);
-
-  transition-duration: 0.2s;
+  transition-duration: 0.3s;
 
   &:active {
-    transform: rotateY(180deg) scale(0.9);
+    transform: rotateY(180deg) scale(0.95);
   }
 }
 
@@ -16,11 +19,8 @@
   @include fluid-text(20, 16);
   font-weight: 600;
   text-align: center;
-
   line-height: 1.2;
-
   color: var(--accent-color);
-
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 100%;

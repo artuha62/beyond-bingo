@@ -2,13 +2,26 @@
   position: absolute;
   z-index: 3000;
   top: 50%;
-  right: rem(20);
-  transform: translateY(-60%);
+  right: rem(10);
+  transform: translateY(-70%);
+  padding: 0;
 
+  @include flex-center;
+  @include square(rem(30));
   transition-duration: 0.3s;
 
   &:disabled {
     opacity: 0.5;
     pointer-events: none;
+  }
+}
+
+.burgerButton svg {
+  width: 40px;
+  height: 40px;
+
+  @include mobile {
+    width: 20px;
+    height: 20px;
   }
 }

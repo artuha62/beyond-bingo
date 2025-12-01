@@ -1,4 +1,3 @@
-import Overlay from '../../components/Overlay/Overlay.jsx'
 import CardsGrid from '../../components/CardsGrid/CardsGrid.jsx'
 import { CardsProvider } from '../../context/CardsContext.jsx'
 import styles from './Bingo.module.scss'
@@ -10,7 +9,6 @@ const Bingo = () => {
       <CardsProvider>
         <Header />
         <CardsGrid />
-        <Overlay />
       </CardsProvider>
     </div>
   )
