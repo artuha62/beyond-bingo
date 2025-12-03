@@ -6,8 +6,16 @@
   transform: translateY(-70%);
   padding: 0;
 
+  color: var(--font-color);
+
   @include flex-center;
   transition-duration: 0.3s;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+  }
 
   &:disabled {
     opacity: 0.5;

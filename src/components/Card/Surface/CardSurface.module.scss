@@ -5,9 +5,10 @@
 
   @include flex-center;
 
-  background: #fff;
+  color: var(--accent-color);
+  background: var(--accent-color-3);
   border-radius: rem(16);
-  border: rem(6) solid rgba(0, 0, 0, 0.05);
+  border: rem(6) solid rgba(0, 0, 0, 0.1);
   box-shadow: var(--shadow);
 
   backface-visibility: hidden;
@@ -15,7 +16,7 @@
 
   @include mobile {
     padding: rem(10);
-    border: rem(3) solid rgba(0, 0, 0, 0.05);
+    border: rem(3) solid rgba(0, 0, 0, 0.1);
     box-shadow: rgba(99, 99, 99, 0.1) 0 2px 8px 0;
   }
 }

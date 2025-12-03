@@ -9,9 +9,9 @@
   animation-iteration-count: infinite;
   background: linear-gradient(
     90deg,
-    #f8f8f8 0,
-    #e8e8e8 rem(500),
-    #f8f8f8 rem(1000)
+    var(--background-color) 0,
+    var(--accent-color-3) rem(500),
+    var(--background-color) rem(1000)
   );
   background-size: rem(1000);
 

@@ -37,7 +37,7 @@
   border-radius: rem(12);
 
   border: rem(2) solid transparent;
-  background: #2f2f37;
+  background: var(--authInput);
 
   font-size: rem(16);
   color: white;
@@ -56,7 +56,7 @@
   width: 100%;
   border: none;
   background: var(--background-color);
-  color: var(--accent-color);
+  color: var(--font-color);
   font-size: rem(16);
   font-weight: 600;
   border-radius: rem(12);

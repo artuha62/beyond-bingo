@@ -9,7 +9,7 @@
   width: rem(300);
   aspect-ratio: 1;
 
-  background: #fff;
+  background: var(--accent-color-3);
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   border-radius: rem(10);
@@ -58,7 +58,8 @@
 
   padding: rem(14) rem(18);
 
-  font-weight: 300;
+  font-weight: 400;
+  color: var(--accent-color-2);
 
   @include fluid-text(20, 14);
   border-radius: 0;
@@ -70,6 +71,11 @@
 }
 
 .button svg {
-  width: rem(16);
-  height: rem(16);
+  width: rem(25);
+  height: rem(25);
+
+  @include mobile {
+    width: rem(16);
+    height: rem(16);
+  }
 }

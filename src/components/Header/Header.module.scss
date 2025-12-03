@@ -1,5 +1,4 @@
 .header {
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,21 +6,11 @@
 
   @include mobile {
     position: sticky;
-    z-index: 10000;
+    z-index: 100;
     top: 0;
 
     margin-inline: -15px;
     padding: rem(5);
-
-    animation-name: scrolling-header;
-    animation-fill-mode: both;
-    animation-timeline: scroll();
-
-    @keyframes scrolling-header {
-      to {
-        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-      }
-    }
   }
 }
 

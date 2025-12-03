@@ -15,8 +15,8 @@
 
 /* card "ease in" animation */
 .cardEaseIn {
-  animation: cardIn 0.3s ease forwards;
-  transform-origin: center;
+  animation: cardIn 0.45s ease forwards;
+  transform-origin: left;
 }
 
 @keyframes cardIn {

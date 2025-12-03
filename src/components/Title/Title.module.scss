@@ -16,7 +16,7 @@
   border: none;
   outline: none;
   background: transparent;
-  color: var(--accent-color);
+  color: var(--font-color);
 
   @include laptop {
     font-size: rem(70);
