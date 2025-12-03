@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { ActionsContext } from '../../../../context/CardsContext.jsx'
 import { surface } from '../../Surface/CardSurface.module.scss'
-import styles from './CardBack.module.css'
+import styles from './CardBack.module.scss'
 
 const CardBack = ({ card: { id, text }, inputRef }) => {
   const { handleSaveText } = useContext(ActionsContext)
 
-  const [localText, setLocalText] = useState(text)
+  const localTextRef = useRef(text)
 
   useEffect(() => {
     if (inputRef.current) {
@@ -19,7 +19,7 @@ const CardBack = ({ card: { id, text }, inputRef }) => {
   const submit = (event) => {
     event.preventDefault()
     event.stopPropagation()
-    handleSaveText(id, localText)
+    handleSaveText(id, localTextRef.current)
   }
 
   return (
@@ -30,8 +30,10 @@ const CardBack = ({ card: { id, text }, inputRef }) => {
           className={styles.input}
           type="text"
           placeholder="Напиши что-нибудь..."
-          value={String(localText)}
-          onChange={(event) => setLocalText(event.target.value)}
+          defaultValue={text}
+          onChange={(event) => {
+            localTextRef.current = event.target.value
+          }}
         />
       </form>
     </div>

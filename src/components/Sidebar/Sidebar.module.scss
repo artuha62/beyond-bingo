@@ -1,7 +1,7 @@
 .sidebar {
-  position: fixed;
-  top: 20%;
-  right: 0;
+  position: absolute;
+  top: calc(100% + rem(20));
+  right: rem(20);
 
   display: flex;
   flex-direction: column;
@@ -10,24 +10,36 @@
   aspect-ratio: 1;
 
   background: #fff;
-  box-shadow: var(--shadow);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   border-radius: rem(10);
 
-  transform: translateX(130%);
-  transition: transform 0.3s ease;
-
   z-index: 2000;
 
+  transform: scale(0);
+  transform-origin: top right;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+
+  @include mobile {
+    right: 0;
+    width: rem(220);
+  }
+
   &.open {
-    transform: translateX(0);
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
 .backdrop {
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(5px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -40,7 +52,24 @@
 }
 
 .button {
-  box-shadow: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: rem(14) rem(18);
+
+  font-weight: 300;
+
+  @include fluid-text(20, 14);
   border-radius: 0;
-  border-bottom: rem(1) solid black;
+  border-bottom: rem(5) solid #e8e8e8;
+
+  @include mobile {
+    padding: rem(8) rem(14);
+  }
+}
+
+.button svg {
+  width: rem(16);
+  height: rem(16);
 }

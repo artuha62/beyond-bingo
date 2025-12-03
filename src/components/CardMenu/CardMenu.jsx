@@ -35,7 +35,7 @@ const CardMenu = () => {
       {/* Overlay */}
       <div
         className={`${styles.backdrop} ${isOpen ? styles.open : ''}`}
-        onClick={handleCloseMenu}
+        onPointerDown={handleCloseMenu}
       />
 
       <div

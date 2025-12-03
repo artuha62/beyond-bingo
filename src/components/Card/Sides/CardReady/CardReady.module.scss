@@ -6,6 +6,7 @@
 
   display: flex;
   flex-direction: column;
+  row-gap: rem(15);
   justify-content: space-between;
   transform: rotateY(180deg);
   transition-duration: 0.3s;
@@ -16,7 +17,7 @@
 }
 
 .text {
-  @include fluid-text(20, 16);
+  font-size: rem(20);
   font-weight: 600;
   text-align: center;
   line-height: 1.2;
@@ -24,12 +25,19 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 100%;
+
+  @include mobile {
+    font-size: rem(14);
+  }
 }
 
 .counter {
-  @include fluid-text(20, 16);
-
   @include flex-center;
 
+  font-size: rem(20);
   letter-spacing: rem(2);
+
+  @include mobile {
+    font-size: rem(14);
+  }
 }

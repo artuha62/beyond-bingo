@@ -12,10 +12,12 @@ const Header = () => {
   }
   return (
     <div className={styles.header}>
+      <div className={styles.spacer} />
       <Title />
-      <BurgerButton onClick={handleSidebarOpen} disabled={menuOpen} />
-
-      <Sidebar isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <div className={styles.menuWrapper}>
+        <BurgerButton onClick={handleSidebarOpen} disabled={menuOpen} />
+        <Sidebar isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      </div>
     </div>
   )
 }

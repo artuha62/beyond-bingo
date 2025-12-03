@@ -5,12 +5,14 @@ import Header from '../../components/Header/Header.jsx'
 
 const Bingo = () => {
   return (
-    <div className={styles.container}>
-      <CardsProvider>
-        <Header />
-        <CardsGrid />
-      </CardsProvider>
-    </div>
+    <CardsProvider>
+      <div className={styles.bingo}>
+        <div className={styles.container}>
+          <Header />
+          <CardsGrid />
+        </div>
+      </div>
+    </CardsProvider>
   )
 }
 export default Bingo

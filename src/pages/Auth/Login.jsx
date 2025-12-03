@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../../services/supabase.js'
-import styles from './AuthForm.module.css'
+import styles from './AuthForm.module.scss'
 
 const Login = ({ onSwitch }) => {
   const [email, setEmail] = useState('test62@gmail.com')

@@ -7,7 +7,7 @@ const Auth = () => {
   const [mode, setMode] = useState('login')
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.auth}>
       <div className={styles.card}>
         <div className={styles.left}>
           <div className={styles.formsWrapper} data-mode={mode}>

@@ -1,6 +1,6 @@
 ::selection {
   background: var(--accent-color);
-  color: var(--color-1);
+  color: var(--background-color);
 }
 
 ::-moz-selection {
@@ -8,39 +8,10 @@
   color: var(--background-color);
 }
 
-html,
 body {
-  width: 100%;
-  min-height: 100dvh;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--background-color);
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
-#root {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  min-height: 100%;
-}
-
-body {
-  -webkit-user-select: none;
-  user-select: none;
-  touch-action: manipulation;
   font-family: 'Jost', sans-serif;
-
   color: var(--accent-color);
-}
-
-input {
-  -webkit-user-select: auto;
-  user-select: auto;
+  background-color: var(--background-color);
 }
 
 button {

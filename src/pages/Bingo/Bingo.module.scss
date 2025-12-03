@@ -1,5 +1,17 @@
+.bingo {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--container-maxWidth);
   padding: fluid(30, 15);
+
+  @include ipadPro {
+    width: var(--ipadProW);
+    height: var(--ipadProH);
+  }
 }

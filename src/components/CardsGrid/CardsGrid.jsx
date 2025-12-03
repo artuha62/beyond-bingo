@@ -2,10 +2,16 @@ import Card from '../Card/Card.jsx'
 import { useContext } from 'react'
 import { CardsDataContext } from '../../context/CardsContext.jsx'
 import CardMenu from '../CardMenu/CardMenu.jsx'
+import CardSkeleton from '../Card/CardSkeleton/CardSkeleton.jsx'
 import styles from './CardsGrid.module.scss'
 
 const CardsGrid = () => {
-  const { cards } = useContext(CardsDataContext)
+  const { cards, showSkeleton } = useContext(CardsDataContext)
+
+  if (showSkeleton) {
+    return <CardSkeleton />
+  }
+
   return (
     <>
       <div className={styles.cardsGrid}>

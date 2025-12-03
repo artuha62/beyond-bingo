@@ -27,6 +27,13 @@ $mobile-s: 480px;
   }
 }
 
+/* iPad Pro 12.9 landscape */
+@mixin ipadPro {
+  @media (width: 1366px) and (height: 1024px) and (orientation: landscape) {
+    @content;
+  }
+}
+
 @mixin mobile-above {
   @media (width > $mobile) {
     @content;

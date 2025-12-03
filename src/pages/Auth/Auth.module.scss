@@ -1,17 +1,22 @@
-.wrapper {
+.auth {
+  min-height: 100vh;
   @include flex-center;
-  background-color: var(--background-color);
 }
 
 .card {
   display: flex;
   width: 1100px;
   height: 600px;
-  padding: 40px;
-  background: #131313;
-  border-radius: 24px;
+  padding: rem(40);
+  background: var(--accent-color);
+  border-radius: rem(24);
   overflow: hidden;
-  box-shadow: var(--shadow);
+
+  @include mobile {
+    width: 375px;
+    height: 375px;
+    padding: 0;
+  }
 }
 
 .left {
@@ -23,16 +28,24 @@
 
 .right {
   flex: 1;
+
+  @include mobile {
+    flex: 0;
+  }
 }
 
 .right .blank {
   background: url('/bingo-2.gif') center/cover no-repeat;
   width: 100%;
   height: 100%;
-  border-radius: 16px;
+  border-radius: rem(16);
+
+  @include mobile {
+    @include visually-hidden;
+  }
 }
 
-/* slide анимация */
+//slide анимация
 .formsWrapper {
   display: flex;
   width: 200%;
@@ -44,6 +57,10 @@
   display: flex;
   align-items: center;
   width: 50%;
+
+  @include mobile {
+    justify-content: center;
+  }
 }
 
 .formsWrapper[data-mode='login'] {

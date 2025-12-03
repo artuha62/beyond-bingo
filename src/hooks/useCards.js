@@ -7,24 +7,25 @@ const useCards = (userId) => {
   const syncRef = useRef({})
   const hasLoaded = useRef(false)
 
-  // --- STATE ---
+  // --- STATES ---
   const [cards, setCards] = useState([])
+  const [showSkeleton, setShowSkeleton] = useState(true)
 
   // --- INITIAL LOAD ---
   useEffect(() => {
-    if (!userId) {
-      return
-    }
-    if (hasLoaded.current) {
-      return
-    }
+    if (!userId) return
+    if (hasLoaded.current) return
     hasLoaded.current = true
 
     const loadCards = async () => {
-      let nextCards = []
+      setShowSkeleton(true)
+
+      await new Promise((resolve) => setTimeout(resolve, 1500))
 
       try {
         const cardsData = await cardsAPI.getAll(userId)
+
+        let nextCards = []
 
         if (!cardsData || cardsData.length === 0) {
           const newCard = await cardsAPI.create(userId)
@@ -45,13 +46,15 @@ const useCards = (userId) => {
             isRemoving: false,
           }))
         }
+
+        setCards(nextCards)
       } catch (error) {
         console.log('Load cards error:', error)
         alert('Ошибка сервера. Попробуйте ещё раз.')
         return null
+      } finally {
+        setShowSkeleton(false)
       }
-
-      setCards(nextCards)
     }
 
     loadCards()
@@ -257,6 +260,7 @@ const useCards = (userId) => {
     handleDeleteCard,
     handleRenameCard,
     handleResetCounter,
+    showSkeleton,
   }
 }
 

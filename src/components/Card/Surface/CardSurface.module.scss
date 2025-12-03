@@ -7,7 +7,7 @@
 
   background: #fff;
   border-radius: rem(16);
-  border: 6px solid rgba(0, 0, 0, 0.05);
+  border: rem(6) solid rgba(0, 0, 0, 0.05);
   box-shadow: var(--shadow);
 
   backface-visibility: hidden;
@@ -15,7 +15,7 @@
 
   @include mobile {
     padding: rem(10);
-    border: rem(2) solid rgba(0, 0, 0, 0.05);
+    border: rem(3) solid rgba(0, 0, 0, 0.05);
     box-shadow: rgba(99, 99, 99, 0.1) 0 2px 8px 0;
   }
 }

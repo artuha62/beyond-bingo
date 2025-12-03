@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { ActionsContext } from '../../../../context/CardsContext.jsx'
 import { surface } from '../../Surface/CardSurface.module.scss'
-import styles from './CardFront.module.css'
+import styles from './CardFront.module.scss'
 
 const CardFront = ({ card: { id } }) => {
   const { handleFlip } = useContext(ActionsContext)

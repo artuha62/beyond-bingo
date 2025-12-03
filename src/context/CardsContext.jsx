@@ -22,13 +22,14 @@ export const CardsProvider = ({ children }) => {
     handleDeleteCard,
     handleRenameCard,
     handleResetCounter,
+    showSkeleton,
   } = useCards(user?.id)
 
   const { menu, handleOpenMenu, handleCloseMenu } = useCardMenu()
 
   const cardsValue = useMemo(() => {
-    return { cards }
-  }, [cards])
+    return { cards, showSkeleton }
+  }, [cards, showSkeleton])
 
   const menuValue = useMemo(() => {
     return { menu }
@@ -43,7 +44,6 @@ export const CardsProvider = ({ children }) => {
       handleDeleteCard,
       handleRenameCard,
       handleResetCounter,
-
       handleOpenMenu,
       handleCloseMenu,
     }
@@ -55,7 +55,6 @@ export const CardsProvider = ({ children }) => {
     handleDeleteCard,
     handleRenameCard,
     handleResetCounter,
-
     handleOpenMenu,
     handleCloseMenu,
   ])

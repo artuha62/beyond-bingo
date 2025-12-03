@@ -26,7 +26,7 @@
   }
 
   @include mobile {
-    column-gap: rem(5);
+    column-gap: rem(6);
     padding: rem(10);
     border-radius: rem(10);
   }
@@ -44,7 +44,7 @@
   box-shadow: var(--shadow);
 
   @include mobile {
-    @include square(rem(35));
+    @include square(rem(34));
 
     border-radius: rem(6);
   }
@@ -61,7 +61,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;

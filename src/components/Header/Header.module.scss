@@ -1,4 +1,42 @@
 .header {
   position: relative;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background-color);
+
+  @include mobile {
+    position: sticky;
+    z-index: 10000;
+    top: 0;
+
+    margin-inline: -15px;
+    padding: rem(5);
+
+    animation-name: scrolling-header;
+    animation-fill-mode: both;
+    animation-timeline: scroll();
+
+    @keyframes scrolling-header {
+      to {
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+.spacer {
+  width: rem(40);
+
+  @include ipadPro {
+    width: rem(35);
+  }
+
+  @include mobile {
+    width: rem(30);
+  }
+}
+
+.menuWrapper {
+  position: relative;
 }
