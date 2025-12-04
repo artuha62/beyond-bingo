@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import cardsAPI from '../api/cardsAPI.js'
+import cardsAPI from '@/api/cardsAPI.js'
 
 const MAX_CARDS = 16
 
@@ -20,7 +20,8 @@ const useCards = (userId) => {
     const loadCards = async () => {
       setShowSkeleton(true)
 
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // skeleton test
+      // await new Promise((resolve) => setTimeout(resolve, 1000))
 
       try {
         const cardsData = await cardsAPI.getAll(userId)

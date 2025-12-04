@@ -15,14 +15,16 @@
 
 /* card "ease in" animation */
 .cardEaseIn {
-  animation: cardIn 0.45s ease forwards;
   transform-origin: left;
+
+  animation: cardIn 0.45s ease forwards;
 }
 
 @keyframes cardIn {
   from {
     transform: scale(0);
   }
+
   to {
     transform: scale(1);
   }

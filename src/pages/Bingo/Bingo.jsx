@@ -1,7 +1,7 @@
-import CardsGrid from '../../components/CardsGrid/CardsGrid.jsx'
-import { CardsProvider } from '../../context/CardsContext.jsx'
+import CardsGrid from '@/components/Card/Grid/CardsGrid.jsx'
+import { CardsProvider } from '@/context/CardsContext.jsx'
 import styles from './Bingo.module.scss'
-import Header from '../../components/Header/Header.jsx'
+import Header from '@/components/Header/Header.jsx'
 
 const Bingo = () => {
   return (

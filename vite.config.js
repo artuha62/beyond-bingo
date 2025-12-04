@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
-import path from 'path'
+import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   plugins: [
@@ -10,11 +10,11 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'robots.txt'],
       manifest: {
-        name: 'Bingo',
-        short_name: 'Bingo',
-        description: 'bingo v0.1',
-        theme_color: '#f9f9ed',
-        background_color: '#f9f9ed',
+        name: 'Beyond Bingo',
+        short_name: 'BBingo',
+        description: 'The next generation of bingo gaming',
+        theme_color: '#ffde21',
+        background_color: '#ffde21',
         display: 'standalone',
         start_url: '/',
         icons: [
@@ -48,7 +48,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 })

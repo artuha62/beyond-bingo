@@ -1,7 +1,7 @@
 import { createContext, useMemo } from 'react'
-import useCards from '../hooks/useCards.js'
-import { useAuth } from '../hooks/useAuth.js'
-import useCardMenu from '../hooks/useCardMenu.js'
+import useCards from '@/hooks/useCards.js'
+import { useAuth } from '@/hooks/useAuth.js'
+import useCardMenu from '@/hooks/useCardMenu.js'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const CardsDataContext = createContext(null)

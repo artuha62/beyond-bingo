@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '../services/supabase.js'
+import { supabase } from '@/services/supabase.js'
 
 export function useAuth() {
   const [user, setUser] = useState(null)
@@ -7,7 +7,8 @@ export function useAuth() {
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data: { session } }) => {
-      await new Promise((resolve) => setTimeout(resolve, 0))
+      // test
+      // await new Promise((resolve) => setTimeout(resolve, 1500))
 
       setUser(session?.user ?? null)
       setIsLoading(false)

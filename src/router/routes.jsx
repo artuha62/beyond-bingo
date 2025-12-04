@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router'
 import PrivateRoute from './guards/PrivateRoute.jsx'
 import AuthGuard from './guards/AuthGuard.jsx'
-import Bingo from '../pages/Bingo/Bingo.jsx'
+import Bingo from '@/pages/Bingo/Bingo.jsx'
 
 export const routes = [
   {

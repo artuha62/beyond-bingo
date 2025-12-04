@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { ActionsContext } from '../../context/CardsContext.jsx'
-import { supabase } from '../../services/supabase.js'
+import { ActionsContext } from '@/context/CardsContext.jsx'
+import { supabase } from '@/services/supabase.js'
 import { MdLogout } from 'react-icons/md'
 import { MdDeleteOutline } from 'react-icons/md'
 import styles from './Sidebar.module.scss'

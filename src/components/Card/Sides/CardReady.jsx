@@ -1,6 +1,6 @@
 import { useContext, useRef } from 'react'
-import { ActionsContext } from '../../../../context/CardsContext.jsx'
-import { surface } from '../../Surface/CardSurface.module.scss'
+import { ActionsContext } from '@/context/CardsContext.jsx'
+import { surface } from '../Surface/CardSurface.module.scss'
 import styles from './CardReady.module.scss'
 
 const LONG_PRESS_DELAY = 450

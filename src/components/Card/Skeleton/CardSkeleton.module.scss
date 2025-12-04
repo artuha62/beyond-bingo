@@ -1,0 +1,41 @@
+.skeleton {
+  position: absolute;
+
+  background: linear-gradient(
+      90deg,
+      var(--background-color) 0,
+      var(--accent-color-3) 500px,
+      var(--background-color) 1000px
+  );
+  background-size: 1000px;
+  border-radius: rem(16);
+
+  animation: shimmer 2.5s,
+  pulse 2.5s;
+  animation-iteration-count: infinite;
+  inset: 0;
+
+  @keyframes shimmer {
+    from {
+      background-position: -1000px 0;
+    }
+
+    to {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.01);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+}

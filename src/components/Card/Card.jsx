@@ -1,8 +1,8 @@
 import { memo, useEffect } from 'react'
 import { useRef } from 'react'
-import CardFront from './Sides/CardFront/CardFront.jsx'
-import CardBack from './Sides/CardBack/CardBack.jsx'
-import CardReady from './Sides/CardReady/CardReady.jsx'
+import CardFront from './Sides/CardFront.jsx'
+import CardBack from './Sides/CardBack.jsx'
+import CardReady from './Sides/CardReady.jsx'
 import styles from './Card.module.scss'
 
 const Card = ({ card }) => {

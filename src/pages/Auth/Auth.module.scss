@@ -1,5 +1,6 @@
 .auth {
   min-height: 100vh;
+
   @include flex-center;
 }
 
@@ -8,9 +9,10 @@
   width: 1100px;
   height: 600px;
   padding: rem(40);
+  overflow: hidden;
+
   background: var(--accent-color-2);
   border-radius: rem(24);
-  overflow: hidden;
 
   @include mobile {
     width: 375px;
@@ -20,10 +22,11 @@
 }
 
 .left {
-  flex: 1;
   position: relative;
-  overflow: hidden;
+
+  flex: 1;
   height: 100%;
+  overflow: hidden;
 }
 
 .right {
@@ -35,9 +38,10 @@
 }
 
 .right .blank {
-  background: url('/bingo-2.gif') center/cover no-repeat;
   width: 100%;
   height: 100%;
+
+  background: url('/bingo-2.gif') center/cover no-repeat;
   border-radius: rem(16);
 
   @include mobile {
@@ -45,11 +49,12 @@
   }
 }
 
-//slide анимация
+// slide анимация
 .formsWrapper {
   display: flex;
   width: 200%;
   height: 100%;
+
   transition: transform 0.3s ease;
 }
 

@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect, useState } from 'react'
-import { ActionsContext, MenuDataContext } from '../../context/CardsContext.jsx'
+import { ActionsContext, MenuDataContext } from '@/context/CardsContext.jsx'
 import { FaPencil } from 'react-icons/fa6'
 import { MdDeleteOutline } from 'react-icons/md'
 import { TiDelete } from 'react-icons/ti'

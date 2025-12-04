@@ -29,7 +29,7 @@ $mobile-s: 480px;
 
 /* iPad Pro 12.9 landscape */
 @mixin ipadPro {
-  @media (width: 1366px) and (height: 1024px) and (orientation: landscape) {
+  @media (width = 1366px) and (height = 1024px) and (orientation: landscape) {
     @content;
   }
 }
@@ -65,7 +65,7 @@ $mobile-s: 480px;
     }
   }
 
-  @if ($hasActiveEffectOnMobile) {
+  @if $hasActiveEffectOnMobile {
     @media (any-hover: none) {
       &:active {
         @content;

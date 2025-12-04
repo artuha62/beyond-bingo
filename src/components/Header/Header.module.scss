@@ -1,16 +1,17 @@
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+
   background-color: var(--background-color);
 
   @include mobile {
     position: sticky;
-    z-index: 100;
     top: 0;
+    z-index: 100;
 
-    margin-inline: -15px;
     padding: rem(5);
+    margin-inline: -15px;
   }
 }
 

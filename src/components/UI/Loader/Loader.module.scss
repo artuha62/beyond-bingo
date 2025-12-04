@@ -1,0 +1,35 @@
+.container {
+  @include flex-center;
+  width: 100%;
+  min-height: 100vh;
+
+  background-color: var(--background-color);
+}
+
+.loader {
+  width: rem(50);
+  aspect-ratio: 1;
+
+  animation: l13-0 2s linear infinite;
+}
+.loader::before,
+.loader::after {
+  position: absolute;
+
+  background-color: var(--accent-color-2);
+  border-radius: 50%;
+
+  animation: l13-1 0.5s cubic-bezier(.5,-500,.5,500) infinite;
+
+  content: "";
+  inset: 0;
+}
+.loader::after {
+  animation-delay: -0.15s;
+}
+@keyframes l13-0 {
+  100% { transform:rotate(360deg)}
+}
+@keyframes l13-1 {
+  100% { transform:translate(0.5px)}
+}

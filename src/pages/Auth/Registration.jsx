@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { supabase } from '../../services/supabase.js'
+import { supabase } from '@/services/supabase.js'
 import styles from './AuthForm.module.scss'
 
 const Registration = ({ onSwitch }) => {

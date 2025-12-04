@@ -1,9 +1,10 @@
 .form {
-  max-width: 360px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: rem(20);
+  justify-content: center;
+  max-width: 360px;
+
   color: #fff;
 
   @include mobile {
@@ -12,8 +13,8 @@
 }
 
 .title {
-  font-size: rem(40);
   font-weight: 700;
+  font-size: rem(40);
 
   @include mobile {
     font-size: rem(30);
@@ -22,25 +23,27 @@
 
 .subtitle {
   font-size: rem(16);
+
   opacity: 0.9;
 }
 
 .link {
   color: var(--background-color);
-  cursor: pointer;
   font-weight: 600;
+
+  cursor: pointer;
 }
 
 .input {
   max-width: 360px;
   padding: rem(14) rem(18);
-  border-radius: rem(12);
 
-  border: rem(2) solid transparent;
-  background: var(--authInput);
-
-  font-size: rem(16);
   color: white;
+  font-size: rem(16);
+
+  background: var(--authInput);
+  border: rem(2) solid transparent;
+  border-radius: rem(12);
 
   transition: border-color 0.2s ease;
 }
@@ -51,17 +54,19 @@
 }
 
 .button {
+  width: 100%;
   margin-top: rem(12);
   padding: rem(14);
-  width: 100%;
-  border: none;
-  background: var(--background-color);
+
   color: var(--font-color);
-  font-size: rem(16);
   font-weight: 600;
+  font-size: rem(16);
+
+  background: var(--background-color);
+  border: none;
   border-radius: rem(12);
-  cursor: pointer;
   box-shadow: none;
+  cursor: pointer;
 
   transition-duration: 0.2s;
 }

@@ -1,15 +1,16 @@
 .readySide {
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: pointer;
-
   display: flex;
   flex-direction: column;
-  row-gap: rem(15);
   justify-content: space-between;
+
   transform: rotateY(180deg);
+  cursor: pointer;
+
   transition-duration: 0.3s;
+
+  user-select: none;
+  touch-action: pan-y;
+  row-gap: rem(15);
 
   &:active {
     transform: rotateY(180deg) scale(0.95);
@@ -17,14 +18,15 @@
 }
 
 .text {
-  font-size: rem(20);
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.2;
-  color: var(--accent-color);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
   max-width: 100%;
+
+  color: var(--accent-color);
+  font-weight: 600;
+  font-size: rem(20);
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: break-word;
+
 
   @include mobile {
     font-size: rem(14);

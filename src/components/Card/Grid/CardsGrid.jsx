@@ -1,8 +1,8 @@
-import Card from '../Card/Card.jsx'
+import Card from '../Card.jsx'
 import { useContext } from 'react'
-import { CardsDataContext } from '../../context/CardsContext.jsx'
-import CardMenu from '../CardMenu/CardMenu.jsx'
-import CardSkeleton from '../Card/CardSkeleton/CardSkeleton.jsx'
+import { CardsDataContext } from '@/context/CardsContext.jsx'
+import CardMenu from '../../CardMenu/CardMenu.jsx'
+import CardSkeleton from '../Skeleton/CardSkeleton.jsx'
 import styles from './CardsGrid.module.scss'
 
 const CardsGrid = () => {

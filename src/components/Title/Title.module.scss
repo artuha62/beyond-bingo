@@ -8,15 +8,17 @@
 
 .titleInput {
   width: 100%;
-  font-size: rem(80);
-  text-transform: uppercase;
+
+  color: var(--font-color);
   font-weight: 800;
+  font-size: rem(80);
+  font-family: Jost, sans-serif;
   text-align: center;
-  font-family: 'Jost', sans-serif;
+  text-transform: uppercase;
+
+  background: transparent;
   border: none;
   outline: none;
-  background: transparent;
-  color: var(--font-color);
 
   @include laptop {
     font-size: rem(70);
@@ -28,12 +30,13 @@
 }
 
 .readonly {
-  pointer-events: none;
   user-select: none;
+  pointer-events: none;
   caret-color: transparent;
 }
 
 .editing {
-  pointer-events: auto;
   caret-color: var(--accent-color);
+
+  pointer-events: auto;
 }

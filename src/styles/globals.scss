@@ -1,21 +1,30 @@
-::selection {
-  background: var(--font-color);
-  color: var(--background-color);
-}
-
-::-moz-selection {
-  background: var(--font-color);
-  color: var(--background-color);
+html {
+  background-color: var(--background-color);
+  overscroll-behavior: none;
 }
 
 body {
-  font-family: 'Jost', sans-serif;
   color: var(--accent-color);
+  font-family: Jost, sans-serif;
+
   background-color: var(--background-color);
 }
 
 button {
-  border: none;
-  background-color: transparent;
   color: var(--accent-color);
+
+  background-color: transparent;
+  border: none;
+}
+
+::selection {
+  color: var(--background-color);
+
+  background: var(--font-color);
+}
+
+::selection {
+  color: var(--background-color);
+
+  background: var(--font-color);
 }
