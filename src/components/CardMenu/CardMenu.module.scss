@@ -13,11 +13,12 @@
   box-shadow: var(--shadow);
   transform: translate(-50%, -50%) scale(0);
 
-  transition: opacity 0.3s ease,
-  visibility 0.3s ease,
-  transform 0.3s ease,
-  left 0s,
-  top 0s;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    transform 0.3s ease,
+    left 0s,
+    top 0s;
 
   pointer-events: none;
 
@@ -68,20 +69,5 @@
 }
 
 .backdrop {
-  position: fixed;
-  z-index: 1500;
-
-  opacity: 0;
-  backdrop-filter: blur(5px);
-
-  transition: opacity 0.3s ease;
-
-  pointer-events: none;
-  inset: 0;
-
-  &.open {
-    opacity: 1;
-
-    pointer-events: all;
-  }
+  @include overlay;
 }
