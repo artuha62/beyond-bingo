@@ -2,7 +2,7 @@
   padding-bottom: rem(30);
 
   @include mobile {
-    padding-bottom: rem(10);
+    padding: 0;
   }
 }
 

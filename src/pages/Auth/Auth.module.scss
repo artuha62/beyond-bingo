@@ -37,22 +37,28 @@
   }
 }
 
-.right .blank {
+.image {
   width: 100%;
   height: 100%;
-
-  background: url('/bingo-2.gif') center/cover no-repeat;
-  border-radius: rem(16);
 
   @include mobile {
     @include visually-hidden;
   }
 }
 
+.image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: rem(16);
+}
+
 // slide анимация
 .formsWrapper {
   display: flex;
-  width: 200%;
+  width: 201%;
   height: 100%;
 
   transition: transform 0.3s ease;

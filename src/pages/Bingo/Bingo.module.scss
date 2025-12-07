@@ -7,7 +7,7 @@
 .container {
   width: 100%;
   max-width: var(--container-maxWidth);
-  padding: fluid(30, 15);
+  padding: fluid(30, 10);
 
   @include ipadPro {
     width: var(--ipadProW);

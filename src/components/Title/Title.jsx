@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect } from 'react'
 import styles from './Title.module.scss'
+import useLocalStorage from '@/hooks/useLocalStorage.js'
 
 const Title = () => {
-  const [title, setTitle] = useState('Bingo')
+  const [title, setTitle] = useLocalStorage('title', 'Bingo')
   const [isEditing, setIsEditing] = useState(false)
 
   const timerRef = useRef(null)
@@ -25,15 +26,10 @@ const Title = () => {
     clearTimeout(timerRef.current)
   }
 
-  const handleSubmit = () => {
+  const submit = (event) => {
+    event.preventDefault()
+    event.stopPropagation()
     setIsEditing(false)
-  }
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault()
-      handleSubmit()
-    }
   }
 
   return (
@@ -42,19 +38,19 @@ const Title = () => {
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
     >
-      <input
-        ref={inputRef}
-        id="bingoTitle"
-        className={[
-          styles.titleInput,
-          isEditing ? styles.editing : styles.readonly,
-        ].join(' ')}
-        value={title}
-        onChange={(event) => setTitle(event.target.value)}
-        onBlur={handleSubmit}
-        onKeyDown={handleKeyDown}
-        readOnly={!isEditing}
-      />
+      <form onBlur={submit} onSubmit={submit}>
+        <input
+          ref={inputRef}
+          id="bingoTitle"
+          className={[
+            styles.titleInput,
+            isEditing ? styles.editing : styles.readonly,
+          ].join(' ')}
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+          readOnly={!isEditing}
+        />
+      </form>
     </div>
   )
 }

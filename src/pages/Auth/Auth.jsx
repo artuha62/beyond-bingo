@@ -22,7 +22,15 @@ const Auth = () => {
         </div>
 
         <div className={styles.right}>
-          <div className={styles.blank}></div>
+          <div className={styles.image}>
+            <img
+              src="bingo-2.gif"
+              alt="bingo"
+              width="480"
+              height="362"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </div>

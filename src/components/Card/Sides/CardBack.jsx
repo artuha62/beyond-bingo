@@ -10,8 +10,8 @@ const CardBack = ({ card: { id, text }, inputRef }) => {
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.focus()
-      inputRef.current.select()
+      inputRef.current?.focus()
+      inputRef.current?.select()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

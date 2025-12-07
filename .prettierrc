@@ -2,7 +2,6 @@
   "printWidth": 80,
   "semi": false,
   "singleQuote": true,
-  "plugins": ["prettier-plugin-css-order"],
   "tabWidth": 2,
   "trailingComma": "es5"
 }

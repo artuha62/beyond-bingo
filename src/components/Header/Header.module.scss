@@ -3,16 +3,32 @@
   align-items: center;
   justify-content: space-between;
 
-  background-color: var(--background-color);
+  background-color: transparent;
 
   @include mobile {
     position: sticky;
     top: 0;
     z-index: 100;
 
-    padding: rem(5);
-    margin-inline: -15px;
+    padding: rem(10);
   }
+}
+
+.header::before {
+  position: absolute;
+
+  z-index: -1;
+
+  background-color: color-mix(
+    in srgb,
+    var(--background-color) 30%,
+    transparent
+  );
+
+  backdrop-filter: blur(4px);
+
+  content: '';
+  inset: 0;
 }
 
 .spacer {
