@@ -16,7 +16,7 @@ const CardBack = ({ card: { id, text }, inputRef }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const submit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
     event.stopPropagation()
     handleSaveText(id, localTextRef.current)
@@ -24,7 +24,11 @@ const CardBack = ({ card: { id, text }, inputRef }) => {
 
   return (
     <div className={`${surface} ${styles.backSide}`}>
-      <form className={styles.form} onBlur={submit} onSubmit={submit}>
+      <form
+        className={styles.form}
+        onBlur={handleSubmit}
+        onSubmit={handleSubmit}
+      >
         <input
           ref={inputRef}
           className={styles.input}

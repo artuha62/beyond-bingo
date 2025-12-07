@@ -26,7 +26,7 @@ const Title = () => {
     clearTimeout(timerRef.current)
   }
 
-  const submit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
     event.stopPropagation()
     setIsEditing(false)
@@ -38,7 +38,7 @@ const Title = () => {
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
     >
-      <form onBlur={submit} onSubmit={submit}>
+      <form onBlur={handleSubmit} onSubmit={handleSubmit}>
         <input
           ref={inputRef}
           id="bingoTitle"
