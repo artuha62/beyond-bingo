@@ -11,7 +11,7 @@ export default defineConfig({
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'robots.txt'],
       manifest: {
         name: 'Beyond Bingo',
-        short_name: 'BBingo',
+        short_name: 'Beyond Bingo',
         description: 'The next generation of bingo gaming',
         theme_color: '#ffde21',
         background_color: '#ffde21',
