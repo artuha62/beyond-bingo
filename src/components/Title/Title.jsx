@@ -33,25 +33,24 @@ const Title = () => {
   }
 
   return (
-    <div
-      className={styles.wrapper}
+    <form
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
+      onBlur={handleSubmit}
+      onSubmit={handleSubmit}
     >
-      <form onBlur={handleSubmit} onSubmit={handleSubmit}>
-        <input
-          ref={inputRef}
-          id="bingoTitle"
-          className={[
-            styles.titleInput,
-            isEditing ? styles.editing : styles.readonly,
-          ].join(' ')}
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          readOnly={!isEditing}
-        />
-      </form>
-    </div>
+      <input
+        ref={inputRef}
+        id="bingoTitle"
+        className={[
+          styles.titleInput,
+          isEditing ? styles.editing : styles.readonly,
+        ].join(' ')}
+        value={title}
+        onChange={(event) => setTitle(event.target.value)}
+        readOnly={!isEditing}
+      />
+    </form>
   )
 }
 

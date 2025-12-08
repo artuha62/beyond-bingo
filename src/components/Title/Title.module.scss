@@ -1,17 +1,13 @@
-.wrapper {
-  padding-bottom: rem(30);
-
-  @include mobile {
-    padding: 0;
-  }
-}
-
 .titleInput {
+  --title-size: #{rem(80)};
+
   width: 100%;
+  height: var(--title-size);
+  padding: 0;
 
   color: var(--font-color);
   font-weight: 800;
-  font-size: rem(80);
+  font-size: var(--title-size);
   font-family: Jost, sans-serif;
   text-align: center;
   text-transform: uppercase;
@@ -21,11 +17,11 @@
   outline: none;
 
   @include laptop {
-    font-size: rem(70);
+    --title-size: #{rem(65)};
   }
 
   @include mobile {
-    font-size: rem(35);
+    --title-size: #{rem(30)};
   }
 }
 

@@ -1,16 +1,11 @@
 .bingo {
   @include flex-center;
 
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .container {
   width: 100%;
   max-width: var(--container-maxWidth);
   padding: fluid(30, 10);
-
-  @include ipadPro {
-    width: var(--ipadProW);
-    height: var(--ipadProH);
-  }
 }

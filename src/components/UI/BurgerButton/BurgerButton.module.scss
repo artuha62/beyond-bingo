@@ -31,8 +31,8 @@
 .burgerButton svg {
   @include square(rem(40));
 
-  @include ipadPro {
-    @include square(rem(35));
+  @include laptop {
+    @include square(rem(36));
   }
 
   @include mobile {

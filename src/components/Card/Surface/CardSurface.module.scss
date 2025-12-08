@@ -6,7 +6,7 @@
   color: var(--accent-color);
 
   background: var(--accent-color-3);
-  border: rem(6) solid rgb(0 0 0 / 10%);
+  border: 6px solid rgb(0 0 0 / 10%);
   border-radius: rem(16);
   box-shadow: var(--shadow);
   backface-visibility: hidden;
@@ -15,10 +15,16 @@
 
   @include flex-center;
 
-  @include mobile {
-    padding: rem(10);
+  @include laptop {
+    padding: rem(16);
 
-    border: rem(3) solid rgb(0 0 0 / 10%);
+    border: 2px solid rgb(0 0 0 / 10%);
+  }
+
+  @include mobile {
+    padding: rem(8);
+
+    border: 1px solid rgb(0 0 0 / 10%);
     box-shadow: rgb(99 99 99 / 10%) 0 2px 8px 0;
   }
 }

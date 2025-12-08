@@ -3,14 +3,14 @@
   align-items: center;
   justify-content: space-between;
 
+  padding: fluid(30, 15);
+
   background-color: transparent;
 
   @include mobile {
     position: sticky;
     top: 0;
     z-index: 100;
-
-    padding: rem(10);
   }
 }
 
@@ -34,12 +34,9 @@
 .spacer {
   width: rem(40);
 
-  @include ipadPro {
-    width: rem(35);
-  }
-
   @include mobile {
-    width: rem(30);
+    width: 30px;
+    aspect-ratio: 1;
   }
 }
 

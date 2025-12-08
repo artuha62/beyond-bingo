@@ -4,12 +4,12 @@
   gap: rem(25);
 
   @include laptop {
-    gap: rem(15);
+    gap: rem(12);
   }
 
   @include mobile {
     grid-template-columns: repeat(2, 1fr);
-    gap: rem(10);
+    gap: rem(8);
   }
 }
 
